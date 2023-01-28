@@ -4,9 +4,9 @@
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
 
-    <color name="black">#FF000000</color>
-    <color name="black_700">#1B1B1B</color>
-    <color name="black_600">#2B2B2B</color>
+    <color name="blue">#0D0F12</color>
+    <color name="blue_700">#23272f</color>
+<!--    <color name="blue_600">#313642</color>-->
     <color name="white">#FFFFFFFF</color>
     <color name="white_80">#CCFFFFFF</color>
     <color name="white_60">#99FFFFFF</color>
