@@ -45,6 +45,9 @@ dependencies {
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
+    // image/video
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
     // Dagger - Hilt
     implementation 'com.google.dagger:hilt-android:2.42'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
