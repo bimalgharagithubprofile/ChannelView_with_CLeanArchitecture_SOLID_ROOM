@@ -21,4 +21,6 @@ abstract class AppDatabase: RoomDatabase() {
     }
 
     abstract val episodesDao: EpisodesDao
+    abstract val channelsDao: ChannelsDao
+    abstract val categoriesDao: CategoriesDao
 }

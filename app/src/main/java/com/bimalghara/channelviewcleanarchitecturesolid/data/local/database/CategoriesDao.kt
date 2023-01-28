@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.episodes.EpisodeEntity
+import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.categories.CategoryEntity
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -12,16 +12,16 @@ import kotlinx.coroutines.flow.Flow
  */
 
 @Dao
-interface EpisodesDao {
+interface CategoriesDao {
 
     //can't be suspending because it's Flow
-    @Query("SELECT * FROM EpisodeEntity")
-    fun getEpisodes(): Flow<List<EpisodeEntity>>
+    @Query("SELECT * FROM CategoryEntity")
+    fun getCategories(): Flow<List<CategoryEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addEpisodes(episodes: List<EpisodeEntity>): List<Long>
+    suspend fun addCategories(categories: List<CategoryEntity>): List<Long>
 
-    @Query("DELETE FROM EpisodeEntity")
+    @Query("DELETE FROM CategoryEntity")
     suspend fun truncate()
 
 }

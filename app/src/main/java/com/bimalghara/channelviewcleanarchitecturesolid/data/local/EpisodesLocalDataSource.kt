@@ -7,14 +7,13 @@ import kotlinx.coroutines.flow.Flow
  * Created by BimalGhara
  */
 
-interface LocalDataSource {
+interface EpisodesLocalDataSource {
 
-    /*
-    * Episodes
-    */
     suspend fun saveEpisodes(episodes: List<EpisodeEntity>): List<Long>
 
     //can't be suspending because it's Flow
     fun getEpisodes(): Flow<List<EpisodeEntity>>
+
+    suspend fun truncateEpisodes()
 
 }
