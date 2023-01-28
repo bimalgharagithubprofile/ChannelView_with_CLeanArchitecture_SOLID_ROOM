@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ChannelViewCleanArchitectureSolid</string>
+
+    <!--error-->
+    <string name="no_internet">Please check your internet connection</string>
+    <string name="network_error">Network error, could get data,please try again!</string>
+    <string name="socket_timeout">Connection timeout!</string>
+
 </resources>
