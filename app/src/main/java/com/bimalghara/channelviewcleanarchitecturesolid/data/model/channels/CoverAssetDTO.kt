@@ -1,6 +1,5 @@
 package com.bimalghara.channelviewcleanarchitecturesolid.data.model.channels
 
-data class IconAsset(
-    val thumbnailUrl: String,
+data class CoverAssetDTO(
     val url: String
 )

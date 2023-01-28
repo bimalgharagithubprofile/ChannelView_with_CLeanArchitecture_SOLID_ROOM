@@ -1,7 +1,7 @@
 package com.bimalghara.channelviewcleanarchitecturesolid.data.model.channels
 
-data class Sery(
-    val coverAsset: CoverAsset,
+data class SeryDTO(
+    val coverAsset: CoverAssetDTO,
     val id: String,
     val title: String
 )
