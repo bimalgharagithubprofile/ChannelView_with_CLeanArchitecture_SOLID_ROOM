@@ -2,14 +2,15 @@ package com.bimalghara.channelviewcleanarchitecturesolid.data.local.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.episodes.Episodes
+import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.channels.ChannelEntity
+import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.episodes.EpisodeEntity
 
 /**
  * Created by BimalGhara
  */
 
 @Database(
-    entities = [Episodes::class],
+    entities = [EpisodeEntity::class, ChannelEntity::class],
     version = 1,
     exportSchema = false
 )

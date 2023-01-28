@@ -21,16 +21,16 @@ fun ChannelDTO.toDomain() : ChannelEntity {
 
 private fun SeryDTO.toDomain() : Media {
     return Media(
+        coverAsset = coverAsset.url,
         title = title,
-        type = "image",
-        coverAsset = coverAsset.url
+        type = "image"
     )
 }
 
 private fun LatestMedia.toDomain() : Media {
     return Media(
+        coverAsset = coverAsset.url,
         title = title,
-        type = type,
-        coverAsset = coverAsset.url
+        type = type
     )
 }

@@ -7,12 +7,12 @@ import androidx.room.PrimaryKey
  * Created by BimalGhara
  */
 @Entity
-data class Episodes(
+data class EpisodeEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
 
-    val title: String = "",
-    val coverAsset: String = "",
-    val channel: String = ""
+    var channel: String? = null,
+    var coverAsset: String? = null,
+    var title: String? = null
 
 )

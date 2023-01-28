@@ -17,7 +17,7 @@ data class ChannelEntity(
 )
 
 data class Media(
+    val coverAsset: String? = null,//image url
     val title: String? = null,
     val type: String? = null,//either[series|course]
-    val coverAsset: String? = null,//image url
 )

@@ -1,5 +1,5 @@
 package com.bimalghara.channelviewcleanarchitecturesolid.data.model.eposodes
 
-data class Data(
-    val media: List<Media>
+data class CoverAssetDTO(
+    val url: String
 )
