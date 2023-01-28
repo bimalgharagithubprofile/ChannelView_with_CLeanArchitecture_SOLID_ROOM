@@ -18,9 +18,9 @@
         <item name="colorSurface">@color/blue_700</item>
         <item name="colorOnSurface">@color/white_50</item>
 
-        <color name="titleTextColor">@color/white</color>
-        <color name="hintTextColor">@color/white_50</color>
-        <color name="tabTextColor">@color/white_70</color>
+        <item name="titleTextColor">@color/white</item>
+        <item name="hintTextColor">@color/white_50</item>
+        <item name="tabTextColor">@color/white_70</item>
 
     </style>
 </resources>
