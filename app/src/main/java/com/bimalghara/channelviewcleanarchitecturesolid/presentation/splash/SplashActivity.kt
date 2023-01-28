@@ -2,6 +2,7 @@ package com.bimalghara.channelviewcleanarchitecturesolid.presentation.splash
 
 import android.content.Intent
 import android.os.Bundle
+import com.bimalghara.channelviewcleanarchitecturesolid.R
 import com.bimalghara.channelviewcleanarchitecturesolid.databinding.ActivitySplashBinding
 import com.bimalghara.channelviewcleanarchitecturesolid.presentation.MainActivity
 import com.bimalghara.channelviewcleanarchitecturesolid.presentation.base.BaseActivity
@@ -38,6 +39,7 @@ class SplashActivity : BaseActivity() {
 
             val nextScreenIntent = Intent(this@SplashActivity, MainActivity::class.java)
             startActivity(nextScreenIntent)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
             finish()
         }
     }
