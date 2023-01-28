@@ -8,6 +8,6 @@
     <color name="blue_700">#23272f</color>
 <!--    <color name="blue_600">#313642</color>-->
     <color name="white">#FFFFFFFF</color>
-    <color name="white_80">#CCFFFFFF</color>
-    <color name="white_60">#99FFFFFF</color>
+    <color name="white_70">#B3FFFFFF</color>
+    <color name="white_50">#80FFFFFF</color>
 </resources>

@@ -4,7 +4,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/blue_700</item>
         <item name="colorPrimaryVariant">@color/blue</item>
-        <item name="colorOnPrimary">@color/white_80</item>
+        <item name="colorOnPrimary">@color/white_70</item>
 
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/purple_500</item>
@@ -16,9 +16,11 @@
 
         <!-- Surface color -->
         <item name="colorSurface">@color/blue_700</item>
-        <item name="colorOnSurface">@color/white_60</item>
+        <item name="colorOnSurface">@color/white_50</item>
 
-        <!-- Customize your theme here. -->
+        <color name="titleTextColor">@color/white</color>
+        <color name="hintTextColor">@color/white_50</color>
+        <color name="tabTextColor">@color/white_70</color>
 
     </style>
 </resources>
