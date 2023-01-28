@@ -15,6 +15,7 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true //[Multidex for room. below Android 5.0 need to add]
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -42,8 +43,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.0'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // image/video
     implementation 'com.squareup.picasso:picasso:2.71828'
