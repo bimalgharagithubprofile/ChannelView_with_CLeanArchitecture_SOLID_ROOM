@@ -1,5 +1,5 @@
 package com.bimalghara.channelviewcleanarchitecturesolid.data.model.categories
 
-data class Data(
-    val categories: List<Category>
+data class CategoryDTO(
+    val name: String
 )
