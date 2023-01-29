@@ -11,7 +11,7 @@ interface ApiServiceChannels {
 
 
     @GET("raw/Xt12uVhM")
-    suspend fun getCountryList():List<ChannelsDTO>
+    suspend fun getChannelList():List<ChannelsDTO>
 
 
 

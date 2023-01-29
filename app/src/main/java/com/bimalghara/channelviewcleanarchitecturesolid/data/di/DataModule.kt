@@ -9,6 +9,9 @@ import com.bimalghara.channelviewcleanarchitecturesolid.data.local.ChannelsLocal
 import com.bimalghara.channelviewcleanarchitecturesolid.data.local.AllChannelsLocalDataImpl
 import com.bimalghara.channelviewcleanarchitecturesolid.data.local.EpisodesLocalDataSource
 import com.bimalghara.channelviewcleanarchitecturesolid.data.local.database.AppDatabase
+import com.bimalghara.channelviewcleanarchitecturesolid.data.network.AllChannelsRemoteDataImpl
+import com.bimalghara.channelviewcleanarchitecturesolid.data.network.AllChannelsRemoteDataSource
+import com.bimalghara.channelviewcleanarchitecturesolid.data.network.retrofit.ApiServiceGenerator
 import com.bimalghara.channelviewcleanarchitecturesolid.data.repository.ErrorDetailsImpl
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.repository.ErrorDetailsSource
 import dagger.Binds
@@ -72,5 +75,10 @@ class DataModuleDataSources {
         return AllChannelsLocalDataImpl(episodesDao = null, channelsDao = null, categoriesDao = db.categoriesDao)
     }
 
+    @Provides
+    @Singleton
+    fun provideAllChannelsRemoteData(serviceGenerator: ApiServiceGenerator): AllChannelsRemoteDataSource {
+        return AllChannelsRemoteDataImpl(serviceGenerator)
+    }
 
 }

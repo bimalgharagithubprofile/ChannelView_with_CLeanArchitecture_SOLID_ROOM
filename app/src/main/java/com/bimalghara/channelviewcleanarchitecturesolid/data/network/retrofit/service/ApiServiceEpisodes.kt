@@ -11,7 +11,7 @@ interface ApiServiceEpisodes {
 
 
     @GET("raw/z5AExTtw")
-    suspend fun getCountryList():List<EpisodesDTO>
+    suspend fun getEpisodeList():List<EpisodesDTO>
 
 
 
