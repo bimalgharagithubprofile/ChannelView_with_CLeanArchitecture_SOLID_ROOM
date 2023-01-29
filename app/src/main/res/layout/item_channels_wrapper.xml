@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/ivHeaderChannelThumbnail"
         android:layout_width="@dimen/_42sdp"
         android:layout_height="@dimen/_42sdp"
@@ -14,6 +14,7 @@
         android:layout_marginEnd="@dimen/_5sdp"
         android:layout_marginTop="@dimen/_15sdp"
         android:layout_marginBottom="@dimen/_12sdp"
+        app:shapeAppearanceOverlay="@style/roundedCornersImage"
         app:srcCompat="@mipmap/ic_logo_round"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
