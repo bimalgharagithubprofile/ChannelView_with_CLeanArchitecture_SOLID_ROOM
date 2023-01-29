@@ -11,7 +11,7 @@ interface ApiServiceCategories {
 
 
     @GET("raw/Xt12uVhM")
-    suspend fun getCategoryList():List<CategoriesDTO>
+    suspend fun getCategoryList():CategoriesDTO
 
 
 

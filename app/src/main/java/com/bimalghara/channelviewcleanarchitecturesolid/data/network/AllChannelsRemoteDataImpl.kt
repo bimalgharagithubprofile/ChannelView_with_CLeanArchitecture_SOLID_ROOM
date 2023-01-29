@@ -18,7 +18,7 @@ class AllChannelsRemoteDataImpl @Inject constructor(
     private val serviceGenerator: ApiServiceGenerator
 ) : SafeApiRequest(), AllChannelsRemoteDataSource {
 
-    override suspend fun requestCategories(): List<CategoriesDTO> {
+    override suspend fun requestCategories(): CategoriesDTO {
         val categoriesService = serviceGenerator.createApiService(ApiServiceCategories::class.java)
 
         return apiRequest(categoriesService::getCategoryList)
@@ -30,7 +30,7 @@ class AllChannelsRemoteDataImpl @Inject constructor(
         return apiRequest(channelsService::getChannelList)
     }
 
-    override suspend fun requestEpisodes(): List<EpisodesDTO> {
+    override suspend fun requestEpisodes(): EpisodesDTO {
         val episodesService = serviceGenerator.createApiService(ApiServiceEpisodes::class.java)
 
         return apiRequest(episodesService::getEpisodeList)

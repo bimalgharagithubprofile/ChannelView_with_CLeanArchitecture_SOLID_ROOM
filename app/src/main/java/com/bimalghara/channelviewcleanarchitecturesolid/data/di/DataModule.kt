@@ -12,9 +12,13 @@ import com.bimalghara.channelviewcleanarchitecturesolid.data.local.database.AppD
 import com.bimalghara.channelviewcleanarchitecturesolid.data.network.AllChannelsRemoteDataImpl
 import com.bimalghara.channelviewcleanarchitecturesolid.data.network.AllChannelsRemoteDataSource
 import com.bimalghara.channelviewcleanarchitecturesolid.data.network.retrofit.ApiServiceGenerator
+import com.bimalghara.channelviewcleanarchitecturesolid.data.repository.CategoriesRepositoryImpl
 import com.bimalghara.channelviewcleanarchitecturesolid.data.repository.ChannelsRepositoryImpl
+import com.bimalghara.channelviewcleanarchitecturesolid.data.repository.EpisodesRepositoryImpl
 import com.bimalghara.channelviewcleanarchitecturesolid.data.repository.ErrorDetailsImpl
+import com.bimalghara.channelviewcleanarchitecturesolid.domain.repository.CategoriesRepositorySource
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.repository.ChannelsRepositorySource
+import com.bimalghara.channelviewcleanarchitecturesolid.domain.repository.EpisodesRepositorySource
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.repository.ErrorDetailsSource
 import dagger.Binds
 import dagger.Module
@@ -47,9 +51,18 @@ abstract class DataModuleErrors {
 @InstallIn(SingletonComponent::class)
 abstract class DataModuleRepositories {
 
+
+    @Binds
+    @Singleton
+    abstract fun provideCategoriesRepository(categoriesRepository: CategoriesRepositoryImpl): CategoriesRepositorySource
+
     @Binds
     @Singleton
     abstract fun provideChannelsRepository(channelsRepository: ChannelsRepositoryImpl): ChannelsRepositorySource
+
+    @Binds
+    @Singleton
+    abstract fun provideEpisodesRepository(episodesRepository: EpisodesRepositoryImpl): EpisodesRepositorySource
 
 }
 

@@ -11,11 +11,11 @@ import com.bimalghara.channelviewcleanarchitecturesolid.data.model.eposodes.Epis
 
 interface AllChannelsRemoteDataSource {
 
-    suspend fun requestCategories(): List<CategoriesDTO>
+    suspend fun requestCategories(): CategoriesDTO
 
     suspend fun requestChannels(): ChannelsDTO
 
-    suspend fun requestEpisodes(): List<EpisodesDTO>
+    suspend fun requestEpisodes(): EpisodesDTO
 
 
 }
