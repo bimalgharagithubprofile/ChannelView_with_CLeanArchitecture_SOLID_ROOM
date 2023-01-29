@@ -3,9 +3,9 @@ package com.bimalghara.channelviewcleanarchitecturesolid.data.local
 import com.bimalghara.channelviewcleanarchitecturesolid.data.local.database.CategoriesDao
 import com.bimalghara.channelviewcleanarchitecturesolid.data.local.database.ChannelsDao
 import com.bimalghara.channelviewcleanarchitecturesolid.data.local.database.EpisodesDao
-import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.categories.CategoryEntity
-import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.channels.ChannelEntity
-import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.episodes.EpisodeEntity
+import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.categories.CategoryEntity
+import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.channels.ChannelEntity
+import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.episodes.EpisodeEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

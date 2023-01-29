@@ -1,6 +1,6 @@
 package com.bimalghara.channelviewcleanarchitecturesolid.data.local
 
-import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.episodes.EpisodeEntity
+import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.episodes.EpisodeEntity
 import kotlinx.coroutines.flow.Flow
 
 /**

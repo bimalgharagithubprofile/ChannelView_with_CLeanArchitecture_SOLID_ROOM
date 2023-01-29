@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.channels.ChannelEntity
+import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.channels.ChannelEntity
 import kotlinx.coroutines.flow.Flow
 
 /**

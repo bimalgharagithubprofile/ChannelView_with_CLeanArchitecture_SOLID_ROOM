@@ -1,4 +1,4 @@
-package com.bimalghara.channelviewcleanarchitecturesolid.domain.model.episodes
+package com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.episodes
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

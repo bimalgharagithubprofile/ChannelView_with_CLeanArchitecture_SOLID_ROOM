@@ -2,9 +2,11 @@ package com.bimalghara.channelviewcleanarchitecturesolid.data.local.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.categories.CategoryEntity
-import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.channels.ChannelEntity
-import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.episodes.EpisodeEntity
+import androidx.room.TypeConverters
+import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.categories.CategoryEntity
+import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.channels.ChannelEntity
+import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.episodes.EpisodeEntity
+import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.type_converters.DataConverters
 
 /**
  * Created by BimalGhara
@@ -15,6 +17,7 @@ import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.episodes.Ep
     version = 1,
     exportSchema = false
 )
+@TypeConverters(DataConverters::class)
 abstract class AppDatabase: RoomDatabase() {
     companion object {
         const val DATABASE_NAME = "mindvalley_app_db"
