@@ -73,6 +73,7 @@ fun View.showToast(
 }
 
 
-fun ImageView.loadImage(@DrawableRes resId: Int) = Picasso.get().load(resId).into(this)
-fun ImageView.loadImage(url: String) = Picasso.get().load(url).placeholder(R.drawable.ic_logo_foreground).error(R.drawable.ic_logo_foreground).into(this)
+fun ImageView.loadImage(url: String) =
+    Picasso.get().load(url).placeholder(R.drawable.ic_logo_foreground)
+        .error(R.drawable.ic_logo_foreground).into(this)
 

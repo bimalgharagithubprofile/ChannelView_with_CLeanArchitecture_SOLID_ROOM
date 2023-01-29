@@ -10,6 +10,8 @@ import com.bimalghara.channelviewcleanarchitecturesolid.databinding.ItemCategori
 import com.bimalghara.channelviewcleanarchitecturesolid.databinding.ItemChannelsWrapperBinding
 import com.bimalghara.channelviewcleanarchitecturesolid.databinding.ItemEpisodesWrapperBinding
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.channels.ChannelEntity
+import com.bimalghara.channelviewcleanarchitecturesolid.utils.loadImage
+import com.bimalghara.channelviewcleanarchitecturesolid.utils.toGone
 
 /**
  * Created by BimalGhara
@@ -68,6 +70,8 @@ class AllChannelsAdapter(
             is ChannelsWrapperViewHolder -> {
                 val item = differ.currentList[position-1]
 
+                if(!item.iconAsset.isNullOrEmpty())
+                    holder.binding.ivHeaderChannelThumbnail.loadImage(item.iconAsset!!)
                 holder.binding.tvHeaderChannelName.text = item.title
                 holder.binding.tvHeaderChannelMediaCount.text = "${item.channelMedia.size} episodes"
             }

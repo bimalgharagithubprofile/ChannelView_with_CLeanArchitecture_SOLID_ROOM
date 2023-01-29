@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bimalghara.channelviewcleanarchitecturesolid.R
 import com.bimalghara.channelviewcleanarchitecturesolid.databinding.FragmentChannelsBinding
 import com.bimalghara.channelviewcleanarchitecturesolid.presentation.all_channels.adapters.AllChannelsAdapter
 import com.bimalghara.channelviewcleanarchitecturesolid.presentation.base.BaseFragment
@@ -41,10 +43,10 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>() {
 
     private fun setupChannelsRecyclerview() {
         allChannelsAdapter = AllChannelsAdapter(requireContext())
-
         binding.rvAllChannels.apply {
             this.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             this.adapter = allChannelsAdapter
+            this.addItemDecoration(RecyclerViewItemDecoration(requireContext(), R.drawable.divider))
         }
     }
 

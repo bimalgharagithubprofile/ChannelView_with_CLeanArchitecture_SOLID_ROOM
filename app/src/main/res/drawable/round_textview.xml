@@ -3,7 +3,7 @@
 
     <corners android:radius="@dimen/_9sdp" />
 
-    <solid android:color="?attr/colorOnSurface"/>
+    <solid android:color="?attr/titleTextColor"/>
 
     <padding android:left="@dimen/_1sdp"
         android:top="@dimen/_3sdp"

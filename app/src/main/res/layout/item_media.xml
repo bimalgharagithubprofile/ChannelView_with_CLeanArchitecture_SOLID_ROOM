@@ -37,6 +37,8 @@
         android:fontFamily="@font/roboto"
         android:ellipsize="end"
         android:maxLines="3"
+        android:textAllCaps="true"
+        app:textAllCaps="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvMediaTitle" />
