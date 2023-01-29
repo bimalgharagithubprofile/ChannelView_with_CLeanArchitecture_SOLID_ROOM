@@ -1,14 +1,15 @@
 package com.bimalghara.channelviewcleanarchitecturesolid.presentation.all_channels
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bimalghara.channelviewcleanarchitecturesolid.databinding.FragmentChannelsBinding
 import com.bimalghara.channelviewcleanarchitecturesolid.presentation.base.BaseFragment
-import com.bimalghara.channelviewcleanarchitecturesolid.utils.observe
-import com.bimalghara.channelviewcleanarchitecturesolid.utils.showSnackBar
+import com.bimalghara.channelviewcleanarchitecturesolid.utils.*
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,7 +32,17 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //
+        setupUsersRecyclerview()
+
+    }
+
+    private fun setupUsersRecyclerview() {
+        /*channelsAdapter = ChannelsAdapter(requireContext())
+
+        binding.rvChannels.apply {
+            this.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            this.adapter = channelsAdapter
+        }*/
     }
 
     override fun observeViewModel() {
@@ -39,6 +50,23 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>() {
 
         observe(channelsViewModel.networkConnectivityLiveData) {
             binding.root.showSnackBar("Network Status: $it", Snackbar.LENGTH_LONG)
+        }
+
+        observe(channelsViewModel.channelsLiveData) {
+            Log.d(logTag, "observe channelsLiveData | $it")
+            when (it) {
+                is ResourceWrapper.Loading -> {
+                    binding.shimmer.toVisible()
+                }
+                is ResourceWrapper.Success -> {
+                    //channelsAdapter.differ.submitList(it)
+                    //binding.shimmer.toGone()
+                    //binding.rvChannels.toVisible()
+                }
+                else -> {
+                    //binding.shimmer.toGone()
+                }
+            }
         }
     }
 
