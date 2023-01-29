@@ -1,5 +1,5 @@
 package com.bimalghara.channelviewcleanarchitecturesolid.data.model.eposodes
 
 data class ChannelDTO(
-    val title: String
+    val title: String? = null
 )

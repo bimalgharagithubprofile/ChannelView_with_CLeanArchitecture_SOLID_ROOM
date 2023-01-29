@@ -6,8 +6,8 @@ import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.epis
 fun MediaDTO.toDomain(): EpisodeEntity {
 
     return EpisodeEntity(
-        channel = channel.title,
-        coverAsset = coverAsset.url,
-        title = title
+        channel = channel?.title ?: "",
+        coverAsset = coverAsset?.url ?: "",
+        title = title ?: ""
     )
 }

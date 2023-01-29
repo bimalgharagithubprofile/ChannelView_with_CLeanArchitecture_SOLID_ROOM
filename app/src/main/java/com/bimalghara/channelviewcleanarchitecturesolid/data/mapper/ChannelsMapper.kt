@@ -9,8 +9,8 @@ import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.chan
 fun ChannelDTO.toDomain() : ChannelEntity {
     val channelEntity = ChannelEntity()
 
-    channelEntity.iconAsset = iconAsset?.url
-    channelEntity.title = title
+    channelEntity.iconAsset = iconAsset?.url ?: ""
+    channelEntity.title = title ?: ""
     if(!series.isNullOrEmpty())
         channelEntity.channelMedia = series.map { it.toDomain() }
     else
@@ -21,16 +21,16 @@ fun ChannelDTO.toDomain() : ChannelEntity {
 
 private fun SeryDTO.toDomain() : ChannelMedia {
     return ChannelMedia(
-        coverAsset = coverAsset.url,
-        title = title,
+        coverAsset = coverAsset?.url ?: "",
+        title = title ?: "",
         type = "image"
     )
 }
 
 private fun LatestMedia.toDomain() : ChannelMedia {
     return ChannelMedia(
-        coverAsset = coverAsset.url,
-        title = title,
-        type = type
+        coverAsset = coverAsset.url ?: "",
+        title = title ?: "",
+        type = type ?: ""
     )
 }

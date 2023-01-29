@@ -17,12 +17,13 @@ class ErrorMapperImpl @Inject constructor(@ApplicationContext val context: Conte
 
     override val errorsMap: Map<String, String>
         get() = mapOf(
+            Pair(ERROR_DEFAULT, getErrorString(R.string.error_default)),
+
             Pair(ERROR_NO_INTERNET_CONNECTION, getErrorString(R.string.no_internet)),
             Pair(ERROR_NETWORK_ERROR, getErrorString(R.string.network_error)),
             Pair(ERROR_SOCKET_TIMEOUT, getErrorString(R.string.socket_timeout)),
 
-            Pair(ERROR_NO_RECORDS, getErrorString(R.string.no_records)),
-
+            Pair(ERROR_NO_RECORDS, getErrorString(R.string.no_records))
         ).withDefault { "Oops! Something went wrong" }
 
     private fun getErrorString(errorId: Int): String {

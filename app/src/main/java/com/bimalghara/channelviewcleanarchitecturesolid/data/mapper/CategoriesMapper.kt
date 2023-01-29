@@ -5,6 +5,6 @@ import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.cate
 
 fun CategoryDTO.toDomain() : CategoryEntity {
     return CategoryEntity(
-        name = name
+        name = name ?: ""
     )
 }

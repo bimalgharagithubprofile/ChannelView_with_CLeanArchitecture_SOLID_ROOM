@@ -7,5 +7,6 @@
     <string name="socket_timeout">Connection timeout!</string>
     <string name="no_records">Oops! No Records was cached</string>
     <string name="channels">Channels</string>
+    <string name="error_default">Something went wrong!</string>
 
 </resources>

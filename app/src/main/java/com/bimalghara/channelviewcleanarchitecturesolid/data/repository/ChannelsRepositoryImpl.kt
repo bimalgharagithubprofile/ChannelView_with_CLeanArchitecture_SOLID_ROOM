@@ -2,6 +2,7 @@ package com.bimalghara.channelviewcleanarchitecturesolid.data.repository
 
 import android.util.Log
 import com.bimalghara.channelviewcleanarchitecturesolid.data.error.CustomException
+import com.bimalghara.channelviewcleanarchitecturesolid.data.error.ERROR_DEFAULT
 import com.bimalghara.channelviewcleanarchitecturesolid.data.local.ChannelsLocalDataSource
 import com.bimalghara.channelviewcleanarchitecturesolid.data.mapper.toDomain
 import com.bimalghara.channelviewcleanarchitecturesolid.data.network.AllChannelsRemoteDataSource
@@ -42,6 +43,8 @@ class ChannelsRepositoryImpl @Inject constructor(
 
         } catch (e: CustomException) {
             throw e
+        } catch (ex: Exception) {
+            throw CustomException(cause = ex.localizedMessage ?: ERROR_DEFAULT)
         }
 
     }

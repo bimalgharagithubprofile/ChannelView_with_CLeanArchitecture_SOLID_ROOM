@@ -10,7 +10,7 @@ import retrofit2.http.GET
 interface ApiServiceCategories {
 
 
-    @GET("raw/Xt12uVhM")
+    @GET("raw/A0CgArX3")
     suspend fun getCategoryList():CategoriesDTO
 
 

@@ -1,8 +1,8 @@
 package com.bimalghara.channelviewcleanarchitecturesolid.data.model.eposodes
 
 data class MediaDTO(
-    val channel: ChannelDTO,
-    val coverAsset: CoverAssetDTO,
-    val title: String,
-    val type: String
+    val channel: ChannelDTO? = null,
+    val coverAsset: CoverAssetDTO? = null,
+    val title: String? = null,
+    val type: String? = null
 )
