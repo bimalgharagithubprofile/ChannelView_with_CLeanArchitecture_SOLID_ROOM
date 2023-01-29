@@ -5,7 +5,9 @@
 
     <dimen name="header">@dimen/_16sdp</dimen>
 
-    <dimen name="tittle">@dimen/_14sdp</dimen>
+    <dimen name="name">@dimen/_14sdp</dimen>
+
+    <dimen name="tittle">@dimen/_13sdp</dimen>
     <dimen name="description">@dimen/_12sdp</dimen>
 
     <dimen name="category">@dimen/_15sdp</dimen>

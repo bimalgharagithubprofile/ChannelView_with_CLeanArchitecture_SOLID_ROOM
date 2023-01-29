@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bimalghara.channelviewcleanarchitecturesolid.databinding.ItemMediaBinding
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.channels.ChannelMedia
+import com.bimalghara.channelviewcleanarchitecturesolid.utils.loadImage
 import com.bimalghara.channelviewcleanarchitecturesolid.utils.toGone
 
 /**
@@ -39,6 +40,11 @@ class ChannelMediaAdapter(
     override fun onBindViewHolder(holder: ChannelMediaAdapter.ViewHolder, position: Int) {
         val item = differ.currentList[position]
 
+        //thumbnail
+        if(!item.coverAsset.isNullOrEmpty())
+            holder.binding.ivMediaThumbnail.loadImage(item.coverAsset!!)
+
+        //text
         holder.binding.tvMediaTitle.text = item.title
         holder.binding.tvMediaTail.toGone()
 
