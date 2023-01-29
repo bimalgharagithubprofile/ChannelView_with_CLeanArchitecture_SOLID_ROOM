@@ -2,6 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingTop="@dimen/_10sdp"
+    android:paddingBottom="@dimen/_20sdp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -9,9 +11,11 @@
         android:id="@+id/tvHeaderCategories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingStart="@dimen/_5sdp"
+        android:paddingEnd="@dimen/_5sdp"
         android:paddingTop="@dimen/_5sdp"
         android:paddingBottom="@dimen/_5sdp"
-        android:text="@string/new_episodes"
+        android:text="@string/browse_by_categories"
         android:textColor="?attr/hintTextColor"
         android:textSize="@dimen/header"
         android:fontFamily="@font/roboto_bold"

@@ -3,10 +3,10 @@
 
     <dimen name="screen_tittle">@dimen/_25sdp</dimen>
 
-    <dimen name="header">@dimen/_18sdp</dimen>
+    <dimen name="header">@dimen/_16sdp</dimen>
 
     <dimen name="tittle">@dimen/_14sdp</dimen>
-    <dimen name="description">@dimen/_10sdp</dimen>
+    <dimen name="description">@dimen/_12sdp</dimen>
 
     <dimen name="category">@dimen/_15sdp</dimen>
 

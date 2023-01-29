@@ -34,7 +34,7 @@
         android:layout_marginTop="@dimen/_10sdp"
         android:textColor="?attr/hintTextColor"
         android:textSize="@dimen/tittle"
-        android:fontFamily="@font/roboto_light"
+        android:fontFamily="@font/roboto"
         android:ellipsize="end"
         android:maxLines="3"
         app:layout_constraintStart_toStartOf="parent"
