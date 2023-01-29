@@ -8,4 +8,6 @@
     <dimen name="tittle">@dimen/_14sdp</dimen>
     <dimen name="description">@dimen/_10sdp</dimen>
 
+    <dimen name="category">@dimen/_15sdp</dimen>
+
 </resources>
