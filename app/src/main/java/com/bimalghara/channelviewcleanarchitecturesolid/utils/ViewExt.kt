@@ -10,7 +10,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.bimalghara.channelviewcleanarchitecturesolid.R
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Callback
+import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
+import java.lang.Exception
 
 /**
  * Created by BimalGhara
@@ -73,7 +76,21 @@ fun View.showToast(
 }
 
 
-fun ImageView.loadImage(url: String) =
-    Picasso.get().load(url).placeholder(R.drawable.ic_logo_foreground)
-        .error(R.drawable.ic_logo_foreground).into(this)
+fun ImageView.loadImage(url: String) {
+    Picasso.get()
+        .load(url)
+        .placeholder(R.mipmap.ic_logo_round)
+        .networkPolicy(NetworkPolicy.OFFLINE)
+        .into(this, object : Callback {
+            override fun onSuccess() { }
+
+            override fun onError(e: Exception?) {
+                //Try again online if cache failed
+                Picasso.get()
+                    .load(url)
+                    .error(R.mipmap.ic_logo_round)
+                    .into(this@loadImage)
+            }
+        })
+}
 
