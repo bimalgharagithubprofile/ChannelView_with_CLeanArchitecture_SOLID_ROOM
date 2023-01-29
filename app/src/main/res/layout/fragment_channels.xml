@@ -60,12 +60,6 @@
         android:layout_height="wrap_content"
         android:text="Hello"
         android:textSize="35dp"
-        android:textColor="?attr/hintTextColor"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Hello"
-        android:textSize="35dp"
-        android:textColor="?attr/tabTextColor"/>-->
+        android:textColor="?attr/hintTextColor"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
