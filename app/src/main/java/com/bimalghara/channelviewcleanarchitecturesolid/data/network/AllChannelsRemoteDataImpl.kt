@@ -24,7 +24,7 @@ class AllChannelsRemoteDataImpl @Inject constructor(
         return apiRequest(categoriesService::getCategoryList)
     }
 
-    override suspend fun requestChannels(): List<ChannelsDTO> {
+    override suspend fun requestChannels(): ChannelsDTO {
         val channelsService = serviceGenerator.createApiService(ApiServiceChannels::class.java)
 
         return apiRequest(channelsService::getChannelList)

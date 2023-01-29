@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.bimalghara.channelviewcleanarchitecturesolid.databinding.FragmentChannelsBinding
 import com.bimalghara.channelviewcleanarchitecturesolid.presentation.base.BaseFragment
+import com.bimalghara.channelviewcleanarchitecturesolid.utils.observe
+import com.bimalghara.channelviewcleanarchitecturesolid.utils.showSnackBar
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -34,6 +37,9 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>() {
     override fun observeViewModel() {
         observeError(channelsViewModel.errorSingleEvent)
 
+        observe(channelsViewModel.networkConnectivityLiveData) {
+            binding.root.showSnackBar("Network Status: $it", Snackbar.LENGTH_LONG)
+        }
     }
 
 

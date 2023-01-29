@@ -13,7 +13,7 @@ interface AllChannelsRemoteDataSource {
 
     suspend fun requestCategories(): List<CategoriesDTO>
 
-    suspend fun requestChannels(): List<ChannelsDTO>
+    suspend fun requestChannels(): ChannelsDTO
 
     suspend fun requestEpisodes(): List<EpisodesDTO>
 

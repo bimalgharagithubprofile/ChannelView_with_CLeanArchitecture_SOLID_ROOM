@@ -9,12 +9,12 @@ import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.chan
 fun ChannelDTO.toDomain() : ChannelEntity {
     val channelEntity = ChannelEntity()
 
-    channelEntity.iconAsset = iconAsset.url
+    channelEntity.iconAsset = iconAsset?.url
     channelEntity.title = title
-    if(series.isNotEmpty())
+    if(series?.isNotEmpty() == true)
         channelEntity.channelMedia = series.map { it.toDomain() }
     else
-        channelEntity.channelMedia = latestMedia.map { it.toDomain() }
+        channelEntity.channelMedia = latestMedia?.map { it.toDomain() } ?: emptyList()
 
     return channelEntity
 }
