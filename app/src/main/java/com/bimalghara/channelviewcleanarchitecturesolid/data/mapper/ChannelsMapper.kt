@@ -11,7 +11,7 @@ fun ChannelDTO.toDomain() : ChannelEntity {
 
     channelEntity.iconAsset = iconAsset?.url
     channelEntity.title = title
-    if(series?.size == 0)
+    if(!series.isNullOrEmpty())
         channelEntity.channelMedia = series.map { it.toDomain() }
     else
         channelEntity.channelMedia = latestMedia?.map { it.toDomain() } ?: emptyList()
