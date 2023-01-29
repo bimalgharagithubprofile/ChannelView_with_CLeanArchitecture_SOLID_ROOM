@@ -55,7 +55,6 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>() {
             Log.d(logTag, "observe channelsLiveData | $it")
             when (it) {
                 is ResourceWrapper.Loading -> {
-                    binding.shimmer.toVisible()
                 }
                 is ResourceWrapper.Success -> {
                     //channelsAdapter.differ.submitList(it)

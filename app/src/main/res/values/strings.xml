@@ -6,5 +6,6 @@
     <string name="network_error">Network error, could get data,please try again!</string>
     <string name="socket_timeout">Connection timeout!</string>
     <string name="no_records">Oops! No Records was cached</string>
+    <string name="channels">Channels</string>
 
 </resources>
