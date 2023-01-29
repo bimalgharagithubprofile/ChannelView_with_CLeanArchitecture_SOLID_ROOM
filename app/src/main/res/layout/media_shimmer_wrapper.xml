@@ -9,11 +9,11 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <include layout="@layout/item_media_shimmer" />
+        <include layout="@layout/channels_shimmer" />
 
-        <include layout="@layout/item_media_shimmer" />
+        <include layout="@layout/channels_shimmer" />
 
-        <include layout="@layout/item_media_shimmer" />
+        <include layout="@layout/channels_shimmer" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -21,11 +21,11 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <include layout="@layout/item_media_shimmer" />
+        <include layout="@layout/channels_shimmer" />
 
-        <include layout="@layout/item_media_shimmer" />
+        <include layout="@layout/channels_shimmer" />
 
-        <include layout="@layout/item_media_shimmer" />
+        <include layout="@layout/channels_shimmer" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -33,10 +33,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <include layout="@layout/item_media_shimmer" />
+        <include layout="@layout/channels_shimmer" />
 
-        <include layout="@layout/item_media_shimmer" />
+        <include layout="@layout/channels_shimmer" />
 
-        <include layout="@layout/item_media_shimmer" />
+        <include layout="@layout/channels_shimmer" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.appcompat.widget.LinearLayoutCompat>

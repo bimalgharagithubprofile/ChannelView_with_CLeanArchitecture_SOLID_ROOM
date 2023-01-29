@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivHeaderChannelThumbnail"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:paddingStart="@dimen/_5sdp"
+        android:paddingEnd="@dimen/_5sdp"
+        app:srcCompat="@mipmap/ic_logo_round"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvHeaderChannelName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/_5sdp"
+        android:paddingBottom="@dimen/_5sdp"
+        android:text="@string/new_episodes"
+        android:textColor="?attr/hintTextColor"
+        android:textSize="@dimen/tittle"
+        android:fontFamily="@font/roboto_medium"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintStart_toEndOf="@+id/ivHeaderChannelThumbnail"
+        app:layout_constraintTop_toTopOf="@+id/ivHeaderChannelThumbnail" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvHeaderChannelMediaCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/_5sdp"
+        android:paddingBottom="@dimen/_5sdp"
+        android:text="@string/new_episodes"
+        android:textColor="?attr/hintTextColor"
+        android:textSize="@dimen/description"
+        android:fontFamily="@font/roboto_light"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintStart_toEndOf="@+id/ivHeaderChannelThumbnail"
+        app:layout_constraintBottom_toBottomOf="@+id/ivHeaderChannelThumbnail"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvAllChannels"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/_5sdp"
+        android:paddingEnd="@dimen/_5sdp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/tvHeaderChannels"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:listitem="@layout/item_media" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="screen_tittle">@dimen/_25sdp</dimen>
+
+    <dimen name="header">@dimen/_18sdp</dimen>
+
+    <dimen name="tittle">@dimen/_14sdp</dimen>
+    <dimen name="description">@dimen/_10sdp</dimen>
+
+</resources>

@@ -36,11 +36,11 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>() {
     }
 
     private fun setupChannelsRecyclerview() {
-        /*channelsAdapter = ChannelsAdapter(requireContext())
+        /*allChannelsAdapter = AllChannelsAdapter(requireContext())
 
-        binding.rvChannels.apply {
+        binding.rvAllChannels.apply {
             this.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            this.adapter = channelsAdapter
+            this.adapter = allChannelsAdapter
         }*/
     }
 

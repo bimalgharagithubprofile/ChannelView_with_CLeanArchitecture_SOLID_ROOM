@@ -8,5 +8,6 @@
     <string name="no_records">Oops! No Records was cached</string>
     <string name="channels">Channels</string>
     <string name="error_default">Something went wrong!</string>
+    <string name="new_episodes">New Episodes</string>
 
 </resources>
