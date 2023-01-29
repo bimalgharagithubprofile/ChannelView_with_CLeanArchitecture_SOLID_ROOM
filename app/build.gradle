@@ -67,9 +67,15 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3"
 
     // room database
-    implementation "androidx.room:room-runtime:2.5.0"
-    kapt "androidx.room:room-compiler:2.5.0"
-    implementation "androidx.room:room-ktx:2.5.0"
+    implementation 'androidx.room:room-runtime:2.5.0'
+    kapt 'androidx.room:room-compiler:2.5.0'
+    implementation 'androidx.room:room-ktx:2.5.0'
+
+    //shimmer effect
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+    //SDP Library - for Responsive size
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
 
     // testing JVM
     testImplementation 'junit:junit:4.13.2'//Junit-4 testing framework
