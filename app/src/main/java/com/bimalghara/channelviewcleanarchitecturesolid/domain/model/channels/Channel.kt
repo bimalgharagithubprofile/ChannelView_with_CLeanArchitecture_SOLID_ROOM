@@ -11,13 +11,13 @@ data class ChannelEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
 
-    var iconAsset: String? = null,//image url
+    var iconAsset: String? = null,//thumbnail url
     var title: String? = null,
     var media: List<Media> = emptyList(),//all series, if empty then all course
 )
 
-data class Media(
-    val coverAsset: String? = null,//image url
+class Media(
+    val coverAsset: String? = null,//thumbnail url
     val title: String? = null,
-    val type: String? = null,//either[series|course]
+    val type: String? = null,//either[image|video]
 )
