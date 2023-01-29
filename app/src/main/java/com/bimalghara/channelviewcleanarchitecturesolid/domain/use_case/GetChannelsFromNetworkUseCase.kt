@@ -13,15 +13,18 @@ import kotlin.coroutines.CoroutineContext
  * Created by BimalGhara
  */
 
-class GetChannelsFromNetworkUseCase(private val ioDispatcher: CoroutineContext, private val channelsRepositorySource: ChannelsRepositorySource)  {
+class GetChannelsFromNetworkUseCase(
+    private val ioDispatcher: CoroutineContext,
+    private val channelsRepositorySource: ChannelsRepositorySource
+) {
 
-    operator fun invoke():Flow<ResourceWrapper<List<ChannelEntity>>> = flow {
+    operator fun invoke(): Flow<ResourceWrapper<List<ChannelEntity>>> = flow {
         emit(ResourceWrapper.Loading())
 
         try {
             val result = channelsRepositorySource.getCountryListFromNetwork()
             emit(ResourceWrapper.Success(data = result))
-        }catch (e: CustomException){
+        } catch (e: CustomException) {
             emit(ResourceWrapper.Error(e))
         }
 

@@ -7,6 +7,7 @@ import com.bimalghara.channelviewcleanarchitecturesolid.data.mapper.toDomain
 import com.bimalghara.channelviewcleanarchitecturesolid.data.network.AllChannelsRemoteDataSource
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.channels.ChannelEntity
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.repository.ChannelsRepositorySource
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 
@@ -45,8 +46,10 @@ class ChannelsRepositoryImpl @Inject constructor(
 
     }
 
-    override suspend fun getCountryListFromLocal(): List<ChannelEntity> {
-        TODO("Not yet implemented")
+    override fun getCountryListFromLocal(): Flow<List<ChannelEntity>> {
+        return localDataSource.getChannels()
     }
+
+
 }
 

@@ -10,6 +10,7 @@ const val ERROR_NO_INTERNET_CONNECTION = "-7001"
 const val ERROR_NETWORK_ERROR = "-7002"
 const val ERROR_SOCKET_TIMEOUT = "-7003"
 
+const val ERROR_NO_RECORDS = "-7004"
 
 
 

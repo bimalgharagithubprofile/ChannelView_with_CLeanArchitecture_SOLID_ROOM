@@ -6,7 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.bimalghara.channelviewcleanarchitecturesolid.data.error.CustomException
 import com.bimalghara.channelviewcleanarchitecturesolid.data.error.ERROR_NO_INTERNET_CONNECTION
+import com.bimalghara.channelviewcleanarchitecturesolid.data.error.ERROR_NO_RECORDS
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.channels.ChannelEntity
+import com.bimalghara.channelviewcleanarchitecturesolid.domain.use_case.GetChannelsFromLocalUseCase
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.use_case.GetChannelsFromNetworkUseCase
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.use_case.GetErrorDetailsUseCase
 import com.bimalghara.channelviewcleanarchitecturesolid.presentation.base.BaseViewModel
@@ -28,7 +30,8 @@ import javax.inject.Inject
 class ChannelsViewModel @Inject constructor (
     private val networkConnectivitySource: NetworkConnectivitySource,
     errorDetailsUseCase: GetErrorDetailsUseCase,
-    private val getChannelsFromNetworkUseCase: GetChannelsFromNetworkUseCase
+    private val getChannelsFromNetworkUseCase: GetChannelsFromNetworkUseCase,
+    private val getChannelsFromLocalUseCase: GetChannelsFromLocalUseCase
 ) : BaseViewModel(errorDetailsUseCase) {
     private val logTag = javaClass.simpleName
 
@@ -57,6 +60,17 @@ class ChannelsViewModel @Inject constructor (
             showError(CustomException(cause = ERROR_NO_INTERNET_CONNECTION))//just to notify user about no-internet
 
             //get cached data (if exists)
+            _channelsLiveData.value = ResourceWrapper.Loading()
+            getChannelsFromLocalUseCase().onEach {
+                val combinePreviousAndCurrentData = channelsLiveData.value?.data?.plus(it)
+                if(combinePreviousAndCurrentData?.size == 0){
+                    val ex = CustomException(cause = ERROR_NO_RECORDS)
+                    showError(ex)
+                    _channelsLiveData.value = ResourceWrapper.Error(ex)
+                } else {
+                    _channelsLiveData.value = ResourceWrapper.Success(data = combinePreviousAndCurrentData)
+                }
+            }
 
         } else {
 
