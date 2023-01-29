@@ -62,13 +62,13 @@ class ChannelsViewModel @Inject constructor (
             //get cached data (if exists)
             _channelsLiveData.value = ResourceWrapper.Loading()
             getChannelsFromLocalUseCase().onEach {
-                val combinePreviousAndCurrentData = channelsLiveData.value?.data?.plus(it)
-                if(combinePreviousAndCurrentData?.size == 0){
+                val appendedWithPreviousListOnEachEmission = channelsLiveData.value?.data?.plus(it)
+                if(appendedWithPreviousListOnEachEmission?.size == 0){
                     val ex = CustomException(cause = ERROR_NO_RECORDS)
                     showError(ex)
                     _channelsLiveData.value = ResourceWrapper.Error(ex)
                 } else {
-                    _channelsLiveData.value = ResourceWrapper.Success(data = combinePreviousAndCurrentData)
+                    _channelsLiveData.value = ResourceWrapper.Success(data = appendedWithPreviousListOnEachEmission)
                 }
             }
 
