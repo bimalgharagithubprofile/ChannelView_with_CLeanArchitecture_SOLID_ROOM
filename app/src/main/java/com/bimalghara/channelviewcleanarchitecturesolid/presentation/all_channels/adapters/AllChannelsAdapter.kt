@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bimalghara.channelviewcleanarchitecturesolid.databinding.ItemCategoriesWrapperBinding
 import com.bimalghara.channelviewcleanarchitecturesolid.databinding.ItemChannelsWrapperBinding
@@ -70,10 +71,21 @@ class AllChannelsAdapter(
             is ChannelsWrapperViewHolder -> {
                 val item = differ.currentList[position-1]
 
+                //thumbnail
                 if(!item.iconAsset.isNullOrEmpty())
                     holder.binding.ivHeaderChannelThumbnail.loadImage(item.iconAsset!!)
+
+                //text
                 holder.binding.tvHeaderChannelName.text = item.title
                 holder.binding.tvHeaderChannelMediaCount.text = "${item.channelMedia.size} episodes"
+
+                //ChannelMediaRecyclerview
+                val channelMediaAdapter = ChannelMediaAdapter(context)
+                holder.binding.rvChannels.apply {
+                    this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                    this.adapter = channelMediaAdapter
+                }
+                channelMediaAdapter.differ.submitList(item.channelMedia)
             }
         }
 

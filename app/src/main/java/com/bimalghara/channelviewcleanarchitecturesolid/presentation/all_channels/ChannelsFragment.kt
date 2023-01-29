@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bimalghara.channelviewcleanarchitecturesolid.R
 import com.bimalghara.channelviewcleanarchitecturesolid.databinding.FragmentChannelsBinding
@@ -37,11 +36,11 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupChannelsRecyclerview()
+        setupAllChannelsRecyclerview()
 
     }
 
-    private fun setupChannelsRecyclerview() {
+    private fun setupAllChannelsRecyclerview() {
         allChannelsAdapter = AllChannelsAdapter(requireContext())
         binding.rvAllChannels.apply {
             this.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)

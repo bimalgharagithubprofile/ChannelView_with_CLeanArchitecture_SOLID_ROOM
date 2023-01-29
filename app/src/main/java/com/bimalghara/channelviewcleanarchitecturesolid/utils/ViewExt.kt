@@ -79,7 +79,7 @@ fun View.showToast(
 fun ImageView.loadImage(url: String) {
     Picasso.get()
         .load(url)
-        .placeholder(R.mipmap.ic_logo_round)
+        .placeholder(R.mipmap.ic_logo)
         .networkPolicy(NetworkPolicy.OFFLINE)
         .into(this, object : Callback {
             override fun onSuccess() { }
@@ -88,7 +88,7 @@ fun ImageView.loadImage(url: String) {
                 //Try again online if cache failed
                 Picasso.get()
                     .load(url)
-                    .error(R.mipmap.ic_logo_round)
+                    .error(R.mipmap.ic_logo)
                     .into(this@loadImage)
             }
         })

@@ -61,7 +61,7 @@ class ChannelsViewModel @Inject constructor (
     private fun observeNetworkStatus() = viewModelScope.launch {
         networkConnectivitySource.observe().collectLatest {
             Log.i(logTag, "network status: $it")
-            _networkConnectivityLiveData.value = it
+            _networkConnectivityLiveData.value = it//eeeeeeeeeeeee
 
             refreshContent()
         }
