@@ -16,6 +16,7 @@ import com.bimalghara.channelviewcleanarchitecturesolid.utils.NetworkConnectivit
 import com.bimalghara.channelviewcleanarchitecturesolid.utils.ResourceWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -40,9 +41,6 @@ class ChannelsViewModel @Inject constructor(
 ) : BaseViewModel(errorDetailsUseCase) {
     private val logTag = javaClass.simpleName
 
-    private val _networkConnectivityLiveData = MutableLiveData<NetworkConnectivitySource.Status>()
-    val networkConnectivityLiveData: LiveData<NetworkConnectivitySource.Status> get() = _networkConnectivityLiveData
-
     private var _categoriesJob: Job? = null
     private val _categoriesLiveData = MutableLiveData<ResourceWrapper<List<CategoryEntity>>>()
     val categoriesLiveData: LiveData<ResourceWrapper<List<CategoryEntity>>> get() = _categoriesLiveData
@@ -57,13 +55,12 @@ class ChannelsViewModel @Inject constructor(
 
     init {
         loadAllChannelsData()
-        observeNetworkStatus()
     }
 
-    private fun observeNetworkStatus() = viewModelScope.launch {
-        val networkStatus = networkConnectivitySource.getStatus(ioDispatcher)
-        Log.i(logTag, "network status: $networkStatus")
-        _networkConnectivityLiveData.value = networkStatus
+    private suspend fun observeNetworkStatus(): NetworkConnectivitySource.Status {
+        val result = networkConnectivitySource.getStatus(ioDispatcher)
+        Log.i(logTag, "network status: $result")
+        return result
     }
 
     private fun loadAllChannelsData() {
@@ -72,13 +69,14 @@ class ChannelsViewModel @Inject constructor(
         fetchCategoriesDataFromCached()
     }
 
-    fun refreshContent() {
-        if (networkConnectivityLiveData.value != NetworkConnectivitySource.Status.Available) {
-            showError(CustomException(cause = ERROR_NO_INTERNET_CONNECTION))//just to notify user about no-internet
-            return
-        }
+    fun refreshContent() = viewModelScope.launch {
+        val networkStatus = async { observeNetworkStatus() }.await()
 
-        downloadAllChannelsDataFromCloud()
+        if (networkStatus != NetworkConnectivitySource.Status.Available) {
+            showError(CustomException(cause = ERROR_NO_INTERNET_CONNECTION))//just to notify user about no-internet
+        } else {
+            downloadAllChannelsDataFromCloud()
+        }
     }
 
 

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bimalghara.channelviewcleanarchitecturesolid.R
 import com.bimalghara.channelviewcleanarchitecturesolid.databinding.FragmentChannelsBinding
 import com.bimalghara.channelviewcleanarchitecturesolid.presentation.all_channels.adapters.AllChannelsAdapter
@@ -14,13 +15,15 @@ import com.bimalghara.channelviewcleanarchitecturesolid.presentation.base.BaseFr
 import com.bimalghara.channelviewcleanarchitecturesolid.utils.*
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 
 /**
  * Created by BimalGhara
  */
 
 @AndroidEntryPoint
-class ChannelsFragment : BaseFragment<FragmentChannelsBinding>() {
+class ChannelsFragment : BaseFragment<FragmentChannelsBinding>(),
+    SwipeRefreshLayout.OnRefreshListener {
     private val logTag = javaClass.simpleName
 
     private val channelsViewModel: ChannelsViewModel by viewModels()
@@ -38,6 +41,7 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>() {
 
         setupAllChannelsRecyclerview()
 
+        binding.swipeContainer.setOnRefreshListener(this)
     }
 
     private fun setupAllChannelsRecyclerview() {
@@ -51,10 +55,6 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>() {
 
     override fun observeViewModel() {
         observeError(channelsViewModel.errorSingleEvent)
-
-        observe(channelsViewModel.networkConnectivityLiveData) {
-            binding.root.showSnackBar("Network Status: $it", Snackbar.LENGTH_LONG)
-        }
 
         observe(channelsViewModel.channelsLiveData) {
             Log.d(logTag, "observe channelsLiveData | $it")
@@ -71,6 +71,11 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>() {
                 }
             }
         }
+    }
+
+    override fun onRefresh() {
+        channelsViewModel.refreshContent()
+        binding.swipeContainer.isRefreshing = false
     }
 
 

@@ -75,6 +75,9 @@ dependencies {
     //shimmer effect
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
+    //swipe refresh layout
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
     //SDP Library - for Responsive size
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
 
