@@ -83,7 +83,7 @@ fun ImageView.loadImage(url: String) {
         .error(R.mipmap.ic_logo)
         .override(this.width,this.height)
         .centerCrop()
-        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)//store the final data()
+        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)//cache the optimised size data
         .transition(DrawableTransitionOptions.withCrossFade())
         .into(this)
 }
