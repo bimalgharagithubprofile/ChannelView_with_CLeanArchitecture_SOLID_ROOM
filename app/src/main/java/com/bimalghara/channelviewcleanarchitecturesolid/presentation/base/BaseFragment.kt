@@ -38,6 +38,6 @@ abstract class BaseFragment<B: ViewBinding> : Fragment() {
     }
 
     fun observeError(event: LiveData<SingleEvent<Any>>) {
-        binding.root.showToast(this, event, Snackbar.LENGTH_LONG)
+        binding.root.showToast(viewLifecycleOwner, event, Snackbar.LENGTH_LONG)
     }
 }

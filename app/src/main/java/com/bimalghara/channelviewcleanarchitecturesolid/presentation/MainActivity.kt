@@ -1,6 +1,8 @@
 package com.bimalghara.channelviewcleanarchitecturesolid.presentation
 
 import android.os.Bundle
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.bimalghara.channelviewcleanarchitecturesolid.databinding.ActivityMainBinding
 import com.bimalghara.channelviewcleanarchitecturesolid.presentation.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,6 +25,7 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
 }
