@@ -10,9 +10,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface ChannelsRepositorySource {
 
-    suspend fun getCountryListFromNetwork(): List<ChannelEntity>
+    suspend fun getChannelsListFromNetwork(): List<ChannelEntity>
 
     //can't be suspending because it's Flow
-    fun getCountryListFromLocal(): Flow<List<ChannelEntity>>
+    fun getChannelsListFromLocal(): Flow<List<ChannelEntity>>
 
 }

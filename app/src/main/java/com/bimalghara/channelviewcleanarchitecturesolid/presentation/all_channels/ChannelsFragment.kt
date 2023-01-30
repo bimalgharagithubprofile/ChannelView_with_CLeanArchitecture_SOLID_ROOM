@@ -67,7 +67,7 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>() {
                     binding.rvAllChannels.toVisible()
                 }
                 else -> {
-                    //binding.shimmer.toGone()
+                    binding.shimmer.toGone()
                 }
             }
         }

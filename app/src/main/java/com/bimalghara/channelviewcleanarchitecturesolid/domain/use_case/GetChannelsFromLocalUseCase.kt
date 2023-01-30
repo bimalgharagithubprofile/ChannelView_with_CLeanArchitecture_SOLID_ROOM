@@ -16,7 +16,7 @@ class GetChannelsFromLocalUseCase(
 ) {
 
     operator fun invoke(): Flow<List<ChannelEntity>> {
-        return channelsRepositorySource.getCountryListFromLocal().flowOn(ioDispatcher)
+        return channelsRepositorySource.getChannelsListFromLocal().flowOn(ioDispatcher)
 
     }
 

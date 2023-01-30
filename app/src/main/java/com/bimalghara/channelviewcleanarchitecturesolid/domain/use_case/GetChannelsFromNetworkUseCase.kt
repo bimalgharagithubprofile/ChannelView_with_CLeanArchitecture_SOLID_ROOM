@@ -22,7 +22,7 @@ class GetChannelsFromNetworkUseCase(
         emit(ResourceWrapper.Loading())
 
         try {
-            channelsRepositorySource.getCountryListFromNetwork()
+            channelsRepositorySource.getChannelsListFromNetwork()
             emit(ResourceWrapper.Success(data = true))
         } catch (e: CustomException) {
             emit(ResourceWrapper.Error(e))

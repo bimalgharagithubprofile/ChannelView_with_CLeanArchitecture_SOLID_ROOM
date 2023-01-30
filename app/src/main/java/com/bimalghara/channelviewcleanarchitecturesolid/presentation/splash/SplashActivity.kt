@@ -2,11 +2,13 @@ package com.bimalghara.channelviewcleanarchitecturesolid.presentation.splash
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import com.bimalghara.channelviewcleanarchitecturesolid.R
 import com.bimalghara.channelviewcleanarchitecturesolid.databinding.ActivitySplashBinding
 import com.bimalghara.channelviewcleanarchitecturesolid.presentation.MainActivity
 import com.bimalghara.channelviewcleanarchitecturesolid.presentation.base.BaseActivity
 import com.bimalghara.channelviewcleanarchitecturesolid.utils.SPLASH_DELAY
+import com.bimalghara.channelviewcleanarchitecturesolid.utils.observe
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +23,8 @@ import kotlinx.coroutines.launch
 class SplashActivity : BaseActivity() {
     private lateinit var binding: ActivitySplashBinding
 
+    private val splashViewModel: SplashViewModel by viewModels()
+
     override fun initViewBinding() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         val view = binding.root
@@ -29,7 +33,11 @@ class SplashActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        navigateToMainScreen()
+
+        observe(splashViewModel.isLoadingLiveData) { isLoading ->
+            if(!isLoading)
+                navigateToMainScreen()
+        }
     }
 
 

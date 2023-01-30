@@ -28,19 +28,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ChannelsViewModel @Inject constructor(
-    private val networkConnectivitySource: NetworkConnectivitySource,
+    networkConnectivitySource: NetworkConnectivitySource,
     errorDetailsUseCase: GetErrorDetailsUseCase,
-    private val getCategoriesFromNetworkUseCase: GetCategoriesFromNetworkUseCase,
     private val getCategoriesFromLocalUseCase: GetCategoriesFromLocalUseCase,
-    private val getChannelsFromNetworkUseCase: GetChannelsFromNetworkUseCase,
     private val getChannelsFromLocalUseCase: GetChannelsFromLocalUseCase,
-    private val getEpisodesFromNetworkUseCase: GetEpisodesFromNetworkUseCase,
-    private val getEpisodesFromLocalUseCase: GetEpisodesFromLocalUseCase
-) : BaseViewModel(errorDetailsUseCase) {
+    private val getEpisodesFromLocalUseCase: GetEpisodesFromLocalUseCase,
+    private val getCategoriesFromNetworkUseCase: GetCategoriesFromNetworkUseCase,
+    private val getChannelsFromNetworkUseCase: GetChannelsFromNetworkUseCase,
+    private val getEpisodesFromNetworkUseCase: GetEpisodesFromNetworkUseCase
+) : BaseViewModel(networkConnectivitySource, errorDetailsUseCase) {
     private val logTag = javaClass.simpleName
-
-    private val _networkConnectivityLiveData = MutableLiveData<NetworkConnectivitySource.Status>()
-    val networkConnectivityLiveData: LiveData<NetworkConnectivitySource.Status> get() = _networkConnectivityLiveData
 
     private var _categoriesJob: Job? = null
     private val _categoriesLiveData = MutableLiveData<ResourceWrapper<List<CategoryEntity>>>()
@@ -55,20 +52,13 @@ class ChannelsViewModel @Inject constructor(
     val episodesLiveData: LiveData<ResourceWrapper<List<EpisodeEntity>>> get() = _episodesLiveData
 
     init {
-        observeNetworkStatus()
+        loadAllChannelsData()
     }
 
-    private fun observeNetworkStatus() = viewModelScope.launch {
-        networkConnectivitySource.observe().collectLatest {
-            Log.i(logTag, "network status: $it")
-            _networkConnectivityLiveData.value = it
-        }
-    }
-
-    fun loadAllChannelsData() {
-        fetchCategoriesDataFromCached()
-        fetchChannelsDataFromCached()
+    private fun loadAllChannelsData() {
         fetchEpisodesDataFromCached()
+        fetchChannelsDataFromCached()
+        fetchCategoriesDataFromCached()
     }
 
     fun refreshContent() {
@@ -87,48 +77,49 @@ class ChannelsViewModel @Inject constructor(
     private fun fetchCategoriesDataFromCached() {
         _categoriesLiveData.value = ResourceWrapper.Loading()
         getCategoriesFromLocalUseCase().onEach {
-            val appendedWithPreviousListOnEachEmission = categoriesLiveData.value?.data?.plus(it)
-            if (appendedWithPreviousListOnEachEmission?.size == 0) {
+            val existingList = categoriesLiveData.value?.data ?: emptyList()
+            val completeList = existingList.plus(it)
+            if (completeList.isEmpty()) {
                 val ex = CustomException(cause = ERROR_NO_RECORDS)
                 showError(ex)
                 _categoriesLiveData.value = ResourceWrapper.Error(ex)
             } else {
                 _categoriesLiveData.value =
-                    ResourceWrapper.Success(data = appendedWithPreviousListOnEachEmission)
+                    ResourceWrapper.Success(data = completeList)
             }
-        }
+        }.launchIn(viewModelScope)
     }
 
     private fun fetchChannelsDataFromCached() {
         _channelsLiveData.value = ResourceWrapper.Loading()
         getChannelsFromLocalUseCase().onEach {
-            val appendedWithPreviousListOnEachEmission = channelsLiveData.value?.data?.plus(it)
-            if (appendedWithPreviousListOnEachEmission?.size == 0) {
+            val existingList = channelsLiveData.value?.data ?: emptyList()
+            val completeList = existingList.plus(it)
+            if (completeList.isEmpty()) {
                 val ex = CustomException(cause = ERROR_NO_RECORDS)
                 showError(ex)
                 _channelsLiveData.value = ResourceWrapper.Error(ex)
             } else {
-                _channelsLiveData.value =
-                    ResourceWrapper.Success(data = appendedWithPreviousListOnEachEmission)
+                _channelsLiveData.value = ResourceWrapper.Success(data = completeList)
             }
-        }
+        }.launchIn(viewModelScope)
     }
 
     private fun fetchEpisodesDataFromCached() {
         _episodesLiveData.value = ResourceWrapper.Loading()
         getEpisodesFromLocalUseCase().onEach {
-            val appendedWithPreviousListOnEachEmission = episodesLiveData.value?.data?.plus(it)
-            if (appendedWithPreviousListOnEachEmission?.size == 0) {
+            val existingList = episodesLiveData.value?.data ?: emptyList()
+            val completeList = existingList.plus(it)
+            if (completeList.isEmpty()) {
                 val ex = CustomException(cause = ERROR_NO_RECORDS)
                 showError(ex)
                 _episodesLiveData.value = ResourceWrapper.Error(ex)
             } else {
                 _episodesLiveData.value =
-                    ResourceWrapper.Success(data = appendedWithPreviousListOnEachEmission)
+                    ResourceWrapper.Success(data = completeList)
             }
-        }
+        }.launchIn(viewModelScope)
     }
-
 
 
     /*

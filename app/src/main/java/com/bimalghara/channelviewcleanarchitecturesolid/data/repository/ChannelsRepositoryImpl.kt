@@ -23,7 +23,7 @@ class ChannelsRepositoryImpl @Inject constructor(
     ChannelsRepositorySource {
     private val logTag = javaClass.simpleName
 
-    override suspend fun getCountryListFromNetwork(): List<ChannelEntity> {
+    override suspend fun getChannelsListFromNetwork(): List<ChannelEntity> {
         return try {
             val result = remoteDataSource.requestChannels()
 
@@ -49,7 +49,7 @@ class ChannelsRepositoryImpl @Inject constructor(
 
     }
 
-    override fun getCountryListFromLocal(): Flow<List<ChannelEntity>> {
+    override fun getChannelsListFromLocal(): Flow<List<ChannelEntity>> {
         return localDataSource.getChannels()
     }
 
