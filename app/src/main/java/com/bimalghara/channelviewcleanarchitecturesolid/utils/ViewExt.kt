@@ -1,6 +1,7 @@
 package com.bimalghara.channelviewcleanarchitecturesolid.utils
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -13,6 +14,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Callback
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.lang.Exception
 
 /**
@@ -75,15 +80,16 @@ fun View.showToast(
     })
 }
 
-
+fun ImageView.loadImage(resId: Int) = Picasso.get().load(resId).placeholder(R.mipmap.ic_logo).into(this)
 fun ImageView.loadImage(url: String) {
     Picasso.get()
         .load(url)
         .placeholder(R.mipmap.ic_logo)
         .networkPolicy(NetworkPolicy.OFFLINE)
+//        .resize(429, 679)
+//        .centerCrop()
         .into(this, object : Callback {
             override fun onSuccess() { }
-
             override fun onError(e: Exception?) {
                 //Try again online if cache failed
                 Picasso.get()

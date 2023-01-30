@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="@dimen/_120sdp"
+    android:layout_width="@dimen/media_width"
     android:paddingTop="@dimen/_10sdp"
     android:paddingBottom="@dimen/_10sdp"
     android:layout_marginEnd="@dimen/_10sdp"
@@ -10,19 +10,20 @@
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/ivMediaThumbnail"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_190sdp"
+        android:layout_height="@dimen/media_height"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/roundedCornersImage"
-        android:background="?attr/titleTextColor"
-        android:scaleType="centerCrop"/>
+        android:background="?attr/titleTextColor"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvMediaTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_2sdp"
+        android:layout_marginEnd="@dimen/_2sdp"
         android:textColor="?attr/titleTextColor"
         android:textSize="@dimen/tittle"
         android:fontFamily="@font/roboto_medium"
@@ -37,6 +38,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_2sdp"
+        android:layout_marginEnd="@dimen/_2sdp"
         android:textColor="?attr/hintTextColor"
         android:textSize="@dimen/tittle"
         android:fontFamily="@font/roboto"

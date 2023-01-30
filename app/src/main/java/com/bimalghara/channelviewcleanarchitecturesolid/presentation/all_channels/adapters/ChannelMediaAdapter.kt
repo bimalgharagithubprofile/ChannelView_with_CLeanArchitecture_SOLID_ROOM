@@ -6,10 +6,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bimalghara.channelviewcleanarchitecturesolid.R
 import com.bimalghara.channelviewcleanarchitecturesolid.databinding.ItemMediaBinding
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.channels.ChannelMedia
 import com.bimalghara.channelviewcleanarchitecturesolid.utils.loadImage
 import com.bimalghara.channelviewcleanarchitecturesolid.utils.toGone
+import com.squareup.picasso.Callback
+import com.squareup.picasso.NetworkPolicy
+import com.squareup.picasso.Picasso
+import java.lang.Exception
 
 /**
  * Created by BimalGhara
@@ -41,8 +46,10 @@ class ChannelMediaAdapter(
         val item = differ.currentList[position]
 
         //thumbnail
-        if(!item.coverAsset.isNullOrEmpty())
+        if (!item.coverAsset.isNullOrEmpty())
             holder.binding.ivMediaThumbnail.loadImage(item.coverAsset!!)
+        else
+            holder.binding.ivMediaThumbnail.loadImage(R.mipmap.ic_logo)
 
         //text
         holder.binding.tvMediaTitle.text = item.title

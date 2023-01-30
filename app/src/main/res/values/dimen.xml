@@ -12,4 +12,7 @@
 
     <dimen name="category">@dimen/_15sdp</dimen>
 
+    <dimen name="media_width">@dimen/_120sdp</dimen>
+    <dimen name="media_height">@dimen/_190sdp</dimen>
+
 </resources>

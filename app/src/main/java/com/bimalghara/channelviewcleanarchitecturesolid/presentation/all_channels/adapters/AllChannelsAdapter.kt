@@ -7,12 +7,12 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bimalghara.channelviewcleanarchitecturesolid.R
 import com.bimalghara.channelviewcleanarchitecturesolid.databinding.ItemCategoriesWrapperBinding
 import com.bimalghara.channelviewcleanarchitecturesolid.databinding.ItemChannelsWrapperBinding
 import com.bimalghara.channelviewcleanarchitecturesolid.databinding.ItemEpisodesWrapperBinding
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.channels.ChannelEntity
 import com.bimalghara.channelviewcleanarchitecturesolid.utils.loadImage
-import com.bimalghara.channelviewcleanarchitecturesolid.utils.toGone
 
 /**
  * Created by BimalGhara
@@ -74,6 +74,8 @@ class AllChannelsAdapter(
                 //thumbnail
                 if(!item.iconAsset.isNullOrEmpty())
                     holder.binding.ivHeaderChannelThumbnail.loadImage(item.iconAsset!!)
+                else
+                    holder.binding.ivHeaderChannelThumbnail.loadImage(R.mipmap.ic_logo_round)
 
                 //text
                 holder.binding.tvHeaderChannelName.text = item.title
