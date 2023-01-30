@@ -27,7 +27,7 @@ import javax.inject.Inject
  */
 
 @HiltViewModel
-class ChannelsViewModel @Inject constructor (
+class ChannelsViewModel @Inject constructor(
     private val networkConnectivitySource: NetworkConnectivitySource,
     errorDetailsUseCase: GetErrorDetailsUseCase,
     private val getCategoriesFromNetworkUseCase: GetCategoriesFromNetworkUseCase,
@@ -61,102 +61,105 @@ class ChannelsViewModel @Inject constructor (
     private fun observeNetworkStatus() = viewModelScope.launch {
         networkConnectivitySource.observe().collectLatest {
             Log.i(logTag, "network status: $it")
-            _networkConnectivityLiveData.value = it//eeeeeeeeeeeee
-
-            refreshContent()
+            _networkConnectivityLiveData.value = it
         }
+    }
+
+    fun loadAllChannelsData() {
+        fetchCategoriesDataFromCached()
+        fetchChannelsDataFromCached()
+        fetchEpisodesDataFromCached()
     }
 
     fun refreshContent() {
-        if(networkConnectivityLiveData.value != NetworkConnectivitySource.Status.Available) {
+        if (networkConnectivityLiveData.value != NetworkConnectivitySource.Status.Available) {
             showError(CustomException(cause = ERROR_NO_INTERNET_CONNECTION))//just to notify user about no-internet
-
-            //get cached data (if exists)
-            fetchCategoriesDataFromCached()
-            fetchChannelsDataFromCached()
-            fetchEpisodesDataFromCached()
-        } else {
-            fetchCategoriesDataFromCloud()
-            fetchChannelsDataFromCloud()
-            fetchEpisodesDataFromCloud()
+            return
         }
+
+        downloadAllChannelsDataFromCloud()
     }
 
+
+    /*
+    * load data from local database
+    */
     private fun fetchCategoriesDataFromCached() {
         _categoriesLiveData.value = ResourceWrapper.Loading()
         getCategoriesFromLocalUseCase().onEach {
             val appendedWithPreviousListOnEachEmission = categoriesLiveData.value?.data?.plus(it)
-            if(appendedWithPreviousListOnEachEmission?.size == 0){
+            if (appendedWithPreviousListOnEachEmission?.size == 0) {
                 val ex = CustomException(cause = ERROR_NO_RECORDS)
                 showError(ex)
                 _categoriesLiveData.value = ResourceWrapper.Error(ex)
             } else {
-                _categoriesLiveData.value = ResourceWrapper.Success(data = appendedWithPreviousListOnEachEmission)
+                _categoriesLiveData.value =
+                    ResourceWrapper.Success(data = appendedWithPreviousListOnEachEmission)
             }
         }
-    }
-    private fun fetchCategoriesDataFromCloud() {
-        _categoriesJob?.cancel()//to prevent creating duplicate flow, fun is called multiple times
-        _categoriesJob = getCategoriesFromNetworkUseCase().onEach {
-            when (it) {
-                is ResourceWrapper.Error -> showError(it.error)
-                else -> Unit
-            }
-
-            _categoriesLiveData.value = it
-
-        }.launchIn(viewModelScope)
     }
 
     private fun fetchChannelsDataFromCached() {
         _channelsLiveData.value = ResourceWrapper.Loading()
         getChannelsFromLocalUseCase().onEach {
             val appendedWithPreviousListOnEachEmission = channelsLiveData.value?.data?.plus(it)
-            if(appendedWithPreviousListOnEachEmission?.size == 0){
+            if (appendedWithPreviousListOnEachEmission?.size == 0) {
                 val ex = CustomException(cause = ERROR_NO_RECORDS)
                 showError(ex)
                 _channelsLiveData.value = ResourceWrapper.Error(ex)
             } else {
-                _channelsLiveData.value = ResourceWrapper.Success(data = appendedWithPreviousListOnEachEmission)
+                _channelsLiveData.value =
+                    ResourceWrapper.Success(data = appendedWithPreviousListOnEachEmission)
             }
         }
-    }
-    private fun fetchChannelsDataFromCloud() {
-        _channelsJob?.cancel()//to prevent creating duplicate flow, fun is called multiple times
-        _channelsJob = getChannelsFromNetworkUseCase().onEach {
-            when (it) {
-                is ResourceWrapper.Error -> showError(it.error)
-                else -> Unit
-            }
-
-            _channelsLiveData.value = it
-
-        }.launchIn(viewModelScope)
     }
 
     private fun fetchEpisodesDataFromCached() {
         _episodesLiveData.value = ResourceWrapper.Loading()
         getEpisodesFromLocalUseCase().onEach {
             val appendedWithPreviousListOnEachEmission = episodesLiveData.value?.data?.plus(it)
-            if(appendedWithPreviousListOnEachEmission?.size == 0){
+            if (appendedWithPreviousListOnEachEmission?.size == 0) {
                 val ex = CustomException(cause = ERROR_NO_RECORDS)
                 showError(ex)
                 _episodesLiveData.value = ResourceWrapper.Error(ex)
             } else {
-                _episodesLiveData.value = ResourceWrapper.Success(data = appendedWithPreviousListOnEachEmission)
+                _episodesLiveData.value =
+                    ResourceWrapper.Success(data = appendedWithPreviousListOnEachEmission)
             }
         }
     }
-    private fun fetchEpisodesDataFromCloud() {
+
+
+
+    /*
+    * download data from network
+    */
+    private fun downloadAllChannelsDataFromCloud() {
+        /* request for episodes */
         _episodesJob?.cancel()//to prevent creating duplicate flow, fun is called multiple times
         _episodesJob = getEpisodesFromNetworkUseCase().onEach {
             when (it) {
                 is ResourceWrapper.Error -> showError(it.error)
                 else -> Unit
             }
+        }.launchIn(viewModelScope)
 
-            _episodesLiveData.value = it
+        /* request for channels */
+        _channelsJob?.cancel()//to prevent creating duplicate flow, fun is called multiple times
+        _channelsJob = getChannelsFromNetworkUseCase().onEach {
+            when (it) {
+                is ResourceWrapper.Error -> showError(it.error)
+                else -> Unit
+            }
+        }.launchIn(viewModelScope)
 
+        /* request for categories */
+        _categoriesJob?.cancel()//to prevent creating duplicate flow, fun is called multiple times
+        _categoriesJob = getCategoriesFromNetworkUseCase().onEach {
+            when (it) {
+                is ResourceWrapper.Error -> showError(it.error)
+                else -> Unit
+            }
         }.launchIn(viewModelScope)
     }
 }
