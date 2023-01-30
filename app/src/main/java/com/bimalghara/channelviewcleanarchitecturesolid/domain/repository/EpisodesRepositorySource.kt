@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface EpisodesRepositorySource {
 
-    suspend fun getEpisodeListFromNetwork(): List<EpisodeEntity>
+    suspend fun requestEpisodeListFromNetwork()
 
     //can't be suspending because it's Flow
     fun getEpisodeListFromLocal(): Flow<List<EpisodeEntity>>

@@ -1,7 +1,6 @@
 package com.bimalghara.channelviewcleanarchitecturesolid.domain.use_case
 
 import com.bimalghara.channelviewcleanarchitecturesolid.data.error.CustomException
-import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.episodes.EpisodeEntity
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.repository.EpisodesRepositorySource
 import com.bimalghara.channelviewcleanarchitecturesolid.utils.ResourceWrapper
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +12,7 @@ import kotlin.coroutines.CoroutineContext
  * Created by BimalGhara
  */
 
-class GetEpisodesFromNetworkUseCase(
+class RequestEpisodesFromNetworkUseCase(
     private val ioDispatcher: CoroutineContext,
     private val episodesRepositorySource: EpisodesRepositorySource
 ) {
@@ -22,7 +21,7 @@ class GetEpisodesFromNetworkUseCase(
         emit(ResourceWrapper.Loading())
 
         try {
-            episodesRepositorySource.getEpisodeListFromNetwork()
+            episodesRepositorySource.requestEpisodeListFromNetwork()
             emit(ResourceWrapper.Success(data = true))
         } catch (e: CustomException) {
             emit(ResourceWrapper.Error(e))

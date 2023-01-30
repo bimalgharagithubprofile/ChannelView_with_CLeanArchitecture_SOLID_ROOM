@@ -25,8 +25,8 @@ class DomainModule {
     }
 
     @Provides
-    fun provideGetCategoriesFromNetworkUseCase(coroutineContext: CoroutineContext, categoriesRepositorySource: CategoriesRepositorySource): GetCategoriesFromNetworkUseCase {
-        return GetCategoriesFromNetworkUseCase(ioDispatcher = coroutineContext, categoriesRepositorySource = categoriesRepositorySource)
+    fun provideGetCategoriesFromNetworkUseCase(coroutineContext: CoroutineContext, categoriesRepositorySource: CategoriesRepositorySource): RequestCategoriesFromNetworkUseCase {
+        return RequestCategoriesFromNetworkUseCase(ioDispatcher = coroutineContext, categoriesRepositorySource = categoriesRepositorySource)
     }
     @Provides
     fun provideGetCategoriesFromLocalUseCase(coroutineContext: CoroutineContext, categoriesRepositorySource: CategoriesRepositorySource): GetCategoriesFromLocalUseCase {
@@ -34,8 +34,8 @@ class DomainModule {
     }
 
     @Provides
-    fun provideGetChannelsFromNetworkUseCase(coroutineContext: CoroutineContext, channelsRepositorySource: ChannelsRepositorySource): GetChannelsFromNetworkUseCase {
-        return GetChannelsFromNetworkUseCase(ioDispatcher = coroutineContext, channelsRepositorySource = channelsRepositorySource)
+    fun provideGetChannelsFromNetworkUseCase(coroutineContext: CoroutineContext, channelsRepositorySource: ChannelsRepositorySource): RequestChannelsFromNetworkUseCase {
+        return RequestChannelsFromNetworkUseCase(ioDispatcher = coroutineContext, channelsRepositorySource = channelsRepositorySource)
     }
     @Provides
     fun provideGetChannelsFromLocalUseCase(coroutineContext: CoroutineContext, channelsRepositorySource: ChannelsRepositorySource): GetChannelsFromLocalUseCase {
@@ -43,8 +43,8 @@ class DomainModule {
     }
 
     @Provides
-    fun provideGetEpisodesFromNetworkUseCase(coroutineContext: CoroutineContext, episodesRepositorySource: EpisodesRepositorySource): GetEpisodesFromNetworkUseCase {
-        return GetEpisodesFromNetworkUseCase(ioDispatcher = coroutineContext, episodesRepositorySource = episodesRepositorySource)
+    fun provideGetEpisodesFromNetworkUseCase(coroutineContext: CoroutineContext, episodesRepositorySource: EpisodesRepositorySource): RequestEpisodesFromNetworkUseCase {
+        return RequestEpisodesFromNetworkUseCase(ioDispatcher = coroutineContext, episodesRepositorySource = episodesRepositorySource)
     }
     @Provides
     fun provideGetEpisodesFromLocalUseCase(coroutineContext: CoroutineContext, episodesRepositorySource: EpisodesRepositorySource): GetEpisodesFromLocalUseCase {

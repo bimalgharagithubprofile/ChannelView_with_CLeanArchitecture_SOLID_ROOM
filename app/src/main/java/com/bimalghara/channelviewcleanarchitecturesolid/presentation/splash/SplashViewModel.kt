@@ -5,9 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bimalghara.channelviewcleanarchitecturesolid.domain.use_case.GetCategoriesFromNetworkUseCase
-import com.bimalghara.channelviewcleanarchitecturesolid.domain.use_case.GetChannelsFromNetworkUseCase
-import com.bimalghara.channelviewcleanarchitecturesolid.domain.use_case.GetEpisodesFromNetworkUseCase
+import com.bimalghara.channelviewcleanarchitecturesolid.domain.use_case.RequestCategoriesFromNetworkUseCase
+import com.bimalghara.channelviewcleanarchitecturesolid.domain.use_case.RequestChannelsFromNetworkUseCase
+import com.bimalghara.channelviewcleanarchitecturesolid.domain.use_case.RequestEpisodesFromNetworkUseCase
 import com.bimalghara.channelviewcleanarchitecturesolid.utils.NetworkConnectivitySource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -23,9 +23,9 @@ import javax.inject.Inject
 @HiltViewModel
 class SplashViewModel @Inject constructor(
     private val networkConnectivitySource: NetworkConnectivitySource,
-    private val getCategoriesFromNetworkUseCase: GetCategoriesFromNetworkUseCase,
-    private val getChannelsFromNetworkUseCase: GetChannelsFromNetworkUseCase,
-    private val getEpisodesFromNetworkUseCase: GetEpisodesFromNetworkUseCase
+    private val requestCategoriesFromNetworkUseCase: RequestCategoriesFromNetworkUseCase,
+    private val requestChannelsFromNetworkUseCase: RequestChannelsFromNetworkUseCase,
+    private val requestEpisodesFromNetworkUseCase: RequestEpisodesFromNetworkUseCase
 ) : ViewModel() {
     private val logTag = javaClass.simpleName
 
@@ -57,7 +57,7 @@ class SplashViewModel @Inject constructor(
         /* request for episodes */
         if (_episodesJob == null) {//create job once
             viewModelScope.launch {
-                val result = getEpisodesFromNetworkUseCase().last()
+                val result = requestEpisodesFromNetworkUseCase().last()
                 _isEpisodesJobCompleted = true
                 setIsLoading()
             }
@@ -66,7 +66,7 @@ class SplashViewModel @Inject constructor(
         /* request for channels */
         if(_channelsJob == null) {//create job once
             viewModelScope.launch {
-                val result = getChannelsFromNetworkUseCase().last()
+                val result = requestChannelsFromNetworkUseCase().last()
                 _isChannelsJobCompleted = true
                 setIsLoading()
             }
@@ -75,7 +75,7 @@ class SplashViewModel @Inject constructor(
         /* request for categories */
         if(_categoriesJob == null) {//create job once
             viewModelScope.launch {
-                val result = getCategoriesFromNetworkUseCase().last()
+                val result = requestCategoriesFromNetworkUseCase().last()
                 _isCategoriesJobCompleted = true
                 setIsLoading()
             }

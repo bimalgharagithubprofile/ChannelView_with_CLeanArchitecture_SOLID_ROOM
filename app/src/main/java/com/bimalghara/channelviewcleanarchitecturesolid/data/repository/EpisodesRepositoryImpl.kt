@@ -23,8 +23,8 @@ class EpisodesRepositoryImpl @Inject constructor(
     EpisodesRepositorySource {
     private val logTag = javaClass.simpleName
 
-    override suspend fun getEpisodeListFromNetwork(): List<EpisodeEntity> {
-        return try {
+    override suspend fun requestEpisodeListFromNetwork() {
+        try {
             val result = remoteDataSource.requestEpisodes()
 
             //convert DTO to Entity
@@ -38,8 +38,6 @@ class EpisodesRepositoryImpl @Inject constructor(
             if (response.isEmpty()) {
                 Log.e(logTag, "Failed to cache Episodes Records!")
             }
-
-            convertedEpisodesList
 
         } catch (e: CustomException) {
             throw e

@@ -23,8 +23,8 @@ class CategoriesRepositoryImpl @Inject constructor(
     CategoriesRepositorySource {
     private val logTag = javaClass.simpleName
 
-    override suspend fun getCategoryListFromNetwork(): List<CategoryEntity> {
-        return try {
+    override suspend fun requestCategoryListFromNetwork() {
+        try {
             val result = remoteDataSource.requestCategories()
 
             //convert DTO to Entity
@@ -38,8 +38,6 @@ class CategoriesRepositoryImpl @Inject constructor(
             if (response.isEmpty()) {
                 Log.e(logTag, "Failed to cache Categories Records!")
             }
-
-            convertedCategoriesList
 
         } catch (e: CustomException) {
             throw e

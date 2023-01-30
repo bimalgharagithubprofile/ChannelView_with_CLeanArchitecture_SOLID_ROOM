@@ -1,6 +1,5 @@
 package com.bimalghara.channelviewcleanarchitecturesolid.presentation.all_channels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -16,10 +15,8 @@ import com.bimalghara.channelviewcleanarchitecturesolid.utils.NetworkConnectivit
 import com.bimalghara.channelviewcleanarchitecturesolid.utils.ResourceWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -33,9 +30,9 @@ class ChannelsViewModel @Inject constructor(
     private val getCategoriesFromLocalUseCase: GetCategoriesFromLocalUseCase,
     private val getChannelsFromLocalUseCase: GetChannelsFromLocalUseCase,
     private val getEpisodesFromLocalUseCase: GetEpisodesFromLocalUseCase,
-    private val getCategoriesFromNetworkUseCase: GetCategoriesFromNetworkUseCase,
-    private val getChannelsFromNetworkUseCase: GetChannelsFromNetworkUseCase,
-    private val getEpisodesFromNetworkUseCase: GetEpisodesFromNetworkUseCase
+    private val requestCategoriesFromNetworkUseCase: RequestCategoriesFromNetworkUseCase,
+    private val requestChannelsFromNetworkUseCase: RequestChannelsFromNetworkUseCase,
+    private val requestEpisodesFromNetworkUseCase: RequestEpisodesFromNetworkUseCase
 ) : BaseViewModel(networkConnectivitySource, errorDetailsUseCase) {
     private val logTag = javaClass.simpleName
 
@@ -128,7 +125,7 @@ class ChannelsViewModel @Inject constructor(
     private fun downloadAllChannelsDataFromCloud() {
         /* request for episodes */
         _episodesJob?.cancel()//to prevent creating duplicate flow, fun is called multiple times
-        _episodesJob = getEpisodesFromNetworkUseCase().onEach {
+        _episodesJob = requestEpisodesFromNetworkUseCase().onEach {
             when (it) {
                 is ResourceWrapper.Error -> showError(it.error)
                 else -> Unit
@@ -137,7 +134,7 @@ class ChannelsViewModel @Inject constructor(
 
         /* request for channels */
         _channelsJob?.cancel()//to prevent creating duplicate flow, fun is called multiple times
-        _channelsJob = getChannelsFromNetworkUseCase().onEach {
+        _channelsJob = requestChannelsFromNetworkUseCase().onEach {
             when (it) {
                 is ResourceWrapper.Error -> showError(it.error)
                 else -> Unit
@@ -146,7 +143,7 @@ class ChannelsViewModel @Inject constructor(
 
         /* request for categories */
         _categoriesJob?.cancel()//to prevent creating duplicate flow, fun is called multiple times
-        _categoriesJob = getCategoriesFromNetworkUseCase().onEach {
+        _categoriesJob = requestCategoriesFromNetworkUseCase().onEach {
             when (it) {
                 is ResourceWrapper.Error -> showError(it.error)
                 else -> Unit
