@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
 /**
  * Created by BimalGhara
@@ -22,6 +23,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
+    private val ioDispatcher: CoroutineContext,
     private val networkConnectivitySource: NetworkConnectivitySource,
     private val requestCategoriesFromNetworkUseCase: RequestCategoriesFromNetworkUseCase,
     private val requestChannelsFromNetworkUseCase: RequestChannelsFromNetworkUseCase,
@@ -44,13 +46,12 @@ class SplashViewModel @Inject constructor(
     }
 
     private fun observeNetworkStatus() = viewModelScope.launch {
-        networkConnectivitySource.observe().collectLatest {
-            Log.i(logTag, "network status: $it")
-            if (it == NetworkConnectivitySource.Status.Available){
-                downloadAllChannelsDataFromCloud()
-            } else{
-                _isLoadingLiveData.value = false
-            }
+        val networkStatus = networkConnectivitySource.getStatus(ioDispatcher)
+        Log.i(logTag, "network status: $networkStatus")
+        if (networkStatus == NetworkConnectivitySource.Status.Available){
+            downloadAllChannelsDataFromCloud()
+        } else{
+            _isLoadingLiveData.value = false
         }
     }
 

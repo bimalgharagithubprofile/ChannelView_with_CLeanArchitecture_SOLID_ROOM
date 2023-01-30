@@ -1,5 +1,6 @@
 package com.bimalghara.channelviewcleanarchitecturesolid.presentation.all_channels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -17,7 +18,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
 /**
  * Created by BimalGhara
@@ -25,7 +28,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ChannelsViewModel @Inject constructor(
-    networkConnectivitySource: NetworkConnectivitySource,
+    private val ioDispatcher: CoroutineContext,
+    private val networkConnectivitySource: NetworkConnectivitySource,
     errorDetailsUseCase: GetErrorDetailsUseCase,
     private val getCategoriesFromLocalUseCase: GetCategoriesFromLocalUseCase,
     private val getChannelsFromLocalUseCase: GetChannelsFromLocalUseCase,
@@ -33,8 +37,11 @@ class ChannelsViewModel @Inject constructor(
     private val requestCategoriesFromNetworkUseCase: RequestCategoriesFromNetworkUseCase,
     private val requestChannelsFromNetworkUseCase: RequestChannelsFromNetworkUseCase,
     private val requestEpisodesFromNetworkUseCase: RequestEpisodesFromNetworkUseCase
-) : BaseViewModel(networkConnectivitySource, errorDetailsUseCase) {
+) : BaseViewModel(errorDetailsUseCase) {
     private val logTag = javaClass.simpleName
+
+    private val _networkConnectivityLiveData = MutableLiveData<NetworkConnectivitySource.Status>()
+    val networkConnectivityLiveData: LiveData<NetworkConnectivitySource.Status> get() = _networkConnectivityLiveData
 
     private var _categoriesJob: Job? = null
     private val _categoriesLiveData = MutableLiveData<ResourceWrapper<List<CategoryEntity>>>()
@@ -50,6 +57,13 @@ class ChannelsViewModel @Inject constructor(
 
     init {
         loadAllChannelsData()
+        observeNetworkStatus()
+    }
+
+    private fun observeNetworkStatus() = viewModelScope.launch {
+        val networkStatus = networkConnectivitySource.getStatus(ioDispatcher)
+        Log.i(logTag, "network status: $networkStatus")
+        _networkConnectivityLiveData.value = networkStatus
     }
 
     private fun loadAllChannelsData() {
