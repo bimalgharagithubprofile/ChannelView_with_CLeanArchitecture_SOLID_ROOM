@@ -5,30 +5,23 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.annotation.DrawableRes
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.bimalghara.channelviewcleanarchitecturesolid.R
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.snackbar.Snackbar
-import com.squareup.picasso.Callback
-import com.squareup.picasso.NetworkPolicy
-import com.squareup.picasso.Picasso
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import java.lang.Exception
 
 /**
  * Created by BimalGhara
  */
 
 
-
 /**
  * switch between visibility of view
-*/
+ */
 fun View.toVisible() {
     this.visibility = View.VISIBLE
 }
@@ -50,6 +43,7 @@ fun View.showSnackBar(snackBarText: String, timeLength: Int) {
         addCallback(object : Snackbar.Callback() {
             override fun onShown(sb: Snackbar?) {
             }
+
             override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
             }
         })
@@ -58,7 +52,7 @@ fun View.showSnackBar(snackBarText: String, timeLength: Int) {
 }
 
 
-fun Context.toast(message: String){
+fun Context.toast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_LONG).show()
 }
 
@@ -72,7 +66,8 @@ fun View.showToast(
         event.getContentIfNotHandled()?.let {
             when (it) {
                 is String -> Toast.makeText(this.context, it, timeLength).show()
-                is Int -> Toast.makeText(this.context, this.context.getString(it), timeLength).show()
+                is Int -> Toast.makeText(this.context, this.context.getString(it), timeLength)
+                    .show()
                 else -> {
                 }
             }
@@ -80,23 +75,17 @@ fun View.showToast(
     })
 }
 
-fun ImageView.loadImage(resId: Int) = Picasso.get().load(resId).placeholder(R.mipmap.ic_logo).into(this)
+fun ImageView.loadImage(resId: Int) = Glide.with(this.context).load(resId).fitCenter().into(this)
 fun ImageView.loadImage(url: String) {
-    Picasso.get()
+    Glide.with(this.context)
         .load(url)
         .placeholder(R.mipmap.ic_logo)
-        .networkPolicy(NetworkPolicy.OFFLINE)
-//        .resize(429, 679)
-//        .centerCrop()
-        .into(this, object : Callback {
-            override fun onSuccess() { }
-            override fun onError(e: Exception?) {
-                //Try again online if cache failed
-                Picasso.get()
-                    .load(url)
-                    .error(R.mipmap.ic_logo)
-                    .into(this@loadImage)
-            }
-        })
+        .error(R.mipmap.ic_logo)
+        .override(this.width,this.height)
+        .centerCrop()
+        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)//store the final data()
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .into(this)
 }
+
 
