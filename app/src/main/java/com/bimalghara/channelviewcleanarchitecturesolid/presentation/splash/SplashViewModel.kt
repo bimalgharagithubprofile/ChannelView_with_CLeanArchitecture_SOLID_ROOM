@@ -48,6 +48,8 @@ class SplashViewModel @Inject constructor(
             Log.i(logTag, "network status: $it")
             if (it == NetworkConnectivitySource.Status.Available){
                 downloadAllChannelsDataFromCloud()
+            } else{
+                _isLoadingLiveData.value = false
             }
         }
     }
