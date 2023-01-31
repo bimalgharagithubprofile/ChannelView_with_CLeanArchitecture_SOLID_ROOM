@@ -16,6 +16,8 @@ import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.cate
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.channels.ChannelEntity
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.episodes.EpisodeEntity
 import com.bimalghara.channelviewcleanarchitecturesolid.utils.loadImage
+import com.bimalghara.channelviewcleanarchitecturesolid.utils.toGone
+import com.bimalghara.channelviewcleanarchitecturesolid.utils.toVisible
 import okhttp3.internal.toImmutableList
 
 /**
@@ -83,6 +85,11 @@ class AllChannelsAdapter(
         when(holder){
             is EpisodesWrapperViewHolder -> {
 
+                if(_episodes.isEmpty())
+                    holder.binding.tvHeaderEpisodes.toGone()
+                else
+                    holder.binding.tvHeaderEpisodes.toVisible()
+
                 //EpisodesMediaRecyclerview
                 val episodesMediaAdapter = EpisodesMediaAdapter(context)
                 holder.binding.rvEpisodes.apply {
@@ -92,6 +99,10 @@ class AllChannelsAdapter(
                 episodesMediaAdapter.differ.submitList(_episodes.toImmutableList())
             }
             is CategoriesWrapperViewHolder -> {
+                if(_categories.isEmpty())
+                    holder.binding.tvHeaderCategories.toGone()
+                else
+                    holder.binding.tvHeaderCategories.toVisible()
 
                 //CategoriesRecyclerview
                 val categoriesAdapter = CategoriesAdapter(context)
@@ -111,7 +122,10 @@ class AllChannelsAdapter(
 
                 //text
                 holder.binding.tvHeaderChannelName.text = itemChannel.title
-                holder.binding.tvHeaderChannelMediaCount.text = "${itemChannel.channelMedia.size} episodes"
+                if(itemChannel.channelMedia.size > 1)
+                    holder.binding.tvHeaderChannelMediaCount.text = context.getString(R.string.episodes, "${itemChannel.channelMedia.size}")
+                else
+                    holder.binding.tvHeaderChannelMediaCount.text = context.getString(R.string.episode, "${itemChannel.channelMedia.size}")
 
                 //ChannelMediaRecyclerview
                 val channelMediaAdapter = ChannelMediaAdapter(context)

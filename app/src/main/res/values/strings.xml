@@ -10,5 +10,7 @@
     <string name="error_default">Something went wrong!</string>
     <string name="new_episodes">New Episodes</string>
     <string name="browse_by_categories">Browse by categories</string>
+    <string name="episode">%1$s episode</string>
+    <string name="episodes">%1$s episodes</string>
 
 </resources>

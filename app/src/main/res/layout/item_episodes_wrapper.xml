@@ -7,7 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvHeaderChannels"
+        android:id="@+id/tvHeaderEpisodes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="@dimen/_5sdp"
@@ -32,7 +32,7 @@
         android:paddingEnd="@dimen/_5sdp"
         android:scrollbars="none"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/tvHeaderChannels"
+        app:layout_constraintTop_toBottomOf="@+id/tvHeaderEpisodes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:listitem="@layout/item_media" />
