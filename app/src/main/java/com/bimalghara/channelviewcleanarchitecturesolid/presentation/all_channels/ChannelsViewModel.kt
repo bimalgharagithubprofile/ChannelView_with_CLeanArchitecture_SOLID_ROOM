@@ -102,10 +102,10 @@ class ChannelsViewModel @Inject constructor(
     private fun fetchChannelsDataFromCached() {
         _channelsLiveData.value = ResourceWrapper.Loading()
         getChannelsFromLocalUseCase().onEach { newList ->
-            if(newList.isNotEmpty()) {
+            if (newList.isNotEmpty()) {
 
-                val completeList:MutableList<ChannelEntity> = arrayListOf()
-                if(_channelsLiveData.value?.data != null){
+                val completeList: MutableList<ChannelEntity> = arrayListOf()
+                if (_channelsLiveData.value?.data != null) {
                     val existingList = _channelsLiveData.value!!.data!!.toMutableList()
                     existingList.removeAll(newList)
                     completeList.addAll(existingList.plus(newList).toSet().toList())
@@ -126,16 +126,26 @@ class ChannelsViewModel @Inject constructor(
 
     private fun fetchEpisodesDataFromCached() {
         _episodesLiveData.value = ResourceWrapper.Loading()
-        getEpisodesFromLocalUseCase().onEach {
-            val existingList = episodesLiveData.value?.data ?: emptyList()
-            val completeList = existingList.plus(it)
-            if (completeList.isEmpty()) {
-                val ex = CustomException(cause = ERROR_NO_RECORDS)
-                showError(ex)
-                _episodesLiveData.value = ResourceWrapper.Error(ex)
-            } else {
-                _episodesLiveData.value =
-                    ResourceWrapper.Success(data = completeList)
+        getEpisodesFromLocalUseCase().onEach { newList ->
+            if (newList.isNotEmpty()) {
+
+                val completeList: MutableList<EpisodeEntity> = arrayListOf()
+                if (_episodesLiveData.value?.data != null) {
+                    val existingList = _episodesLiveData.value!!.data!!.toMutableList()
+                    existingList.removeAll(newList)
+                    completeList.addAll(existingList.plus(newList).toSet().toList())
+                } else {
+                    completeList.addAll(newList.toSet().toList())
+                }
+
+                if (completeList.isEmpty()) {
+                    val ex = CustomException(cause = ERROR_NO_RECORDS)
+                    showError(ex)
+                    _episodesLiveData.value = ResourceWrapper.Error(ex)
+                } else {
+                    _episodesLiveData.value =
+                        ResourceWrapper.Success(data = completeList)
+                }
             }
         }.launchIn(viewModelScope)
     }

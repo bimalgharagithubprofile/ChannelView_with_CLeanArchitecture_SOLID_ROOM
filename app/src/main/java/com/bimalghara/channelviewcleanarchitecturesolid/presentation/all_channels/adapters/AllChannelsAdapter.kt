@@ -12,7 +12,9 @@ import com.bimalghara.channelviewcleanarchitecturesolid.databinding.ItemCategori
 import com.bimalghara.channelviewcleanarchitecturesolid.databinding.ItemChannelsWrapperBinding
 import com.bimalghara.channelviewcleanarchitecturesolid.databinding.ItemEpisodesWrapperBinding
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.channels.ChannelEntity
+import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.episodes.EpisodeEntity
 import com.bimalghara.channelviewcleanarchitecturesolid.utils.loadImage
+import okhttp3.internal.toImmutableList
 
 /**
  * Created by BimalGhara
@@ -21,6 +23,14 @@ import com.bimalghara.channelviewcleanarchitecturesolid.utils.loadImage
 class AllChannelsAdapter(
     val context: Context
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private val _episodes: MutableList<EpisodeEntity> = arrayListOf()
+
+    fun setEpisodes(episodes: List<EpisodeEntity>) {
+        _episodes.clear()
+        _episodes.addAll(episodes)
+        //NotifyItem(0)  eeeeeeeeeeeeeeeee
+    }
 
     private val differCallback = object : DiffUtil.ItemCallback<ChannelEntity>(){
         override fun areItemsTheSame(oldItem: ChannelEntity, newItem: ChannelEntity): Boolean {
@@ -64,22 +74,30 @@ class AllChannelsAdapter(
         when(holder){
             is EpisodesWrapperViewHolder -> {
 
+                //EpisodesMediaRecyclerview
+                val episodesMediaAdapter = EpisodesMediaAdapter(context)
+                holder.binding.rvEpisodes.apply {
+                    this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                    this.adapter = episodesMediaAdapter
+                }
+                episodesMediaAdapter.differ.submitList(_episodes.toImmutableList())
             }
             is CategoriesWrapperViewHolder -> {
+                //val itemCategories =
 
             }
             is ChannelsWrapperViewHolder -> {
-                val item = differ.currentList[position-1]
+                val itemChannel = differ.currentList[position-1]
 
                 //thumbnail
-                if(item.iconAsset.isNotEmpty())
-                    holder.binding.ivHeaderChannelThumbnail.loadImage(item.iconAsset)
+                if(itemChannel.iconAsset.isNotEmpty())
+                    holder.binding.ivHeaderChannelThumbnail.loadImage(itemChannel.iconAsset)
                 else
                     holder.binding.ivHeaderChannelThumbnail.loadImage(R.mipmap.ic_logo_round)
 
                 //text
-                holder.binding.tvHeaderChannelName.text = item.title
-                holder.binding.tvHeaderChannelMediaCount.text = "${item.channelMedia.size} episodes"
+                holder.binding.tvHeaderChannelName.text = itemChannel.title
+                holder.binding.tvHeaderChannelMediaCount.text = "${itemChannel.channelMedia.size} episodes"
 
                 //ChannelMediaRecyclerview
                 val channelMediaAdapter = ChannelMediaAdapter(context)
@@ -87,7 +105,7 @@ class AllChannelsAdapter(
                     this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     this.adapter = channelMediaAdapter
                 }
-                channelMediaAdapter.differ.submitList(item.channelMedia)
+                channelMediaAdapter.differ.submitList(itemChannel.channelMedia)
             }
         }
 

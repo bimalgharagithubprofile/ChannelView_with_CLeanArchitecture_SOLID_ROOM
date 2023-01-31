@@ -56,15 +56,35 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>(),
     override fun observeViewModel() {
         observeError(channelsViewModel.errorSingleEvent)
 
+        observe(channelsViewModel.episodesLiveData) {
+            Log.d(logTag, "observe episodesLiveData | $it")
+            when (it) {
+                is ResourceWrapper.Loading -> {
+                }
+                is ResourceWrapper.Success -> {
+                    if(!it.data.isNullOrEmpty()) {
+                        allChannelsAdapter.setEpisodes(it.data)
+                        binding.shimmer.toGone()
+                        binding.rvAllChannels.toVisible()
+                    }
+                }
+                else -> {
+                    binding.shimmer.toGone()
+                }
+            }
+        }
+
         observe(channelsViewModel.channelsLiveData) {
             Log.d(logTag, "observe channelsLiveData | $it")
             when (it) {
                 is ResourceWrapper.Loading -> {
                 }
                 is ResourceWrapper.Success -> {
-                    allChannelsAdapter.differ.submitList(it.data)
-                    binding.shimmer.toGone()
-                    binding.rvAllChannels.toVisible()
+                    if(!it.data.isNullOrEmpty()) {
+                        allChannelsAdapter.differ.submitList(it.data)
+                        binding.shimmer.toGone()
+                        binding.rvAllChannels.toVisible()
+                    }
                 }
                 else -> {
                     binding.shimmer.toGone()
