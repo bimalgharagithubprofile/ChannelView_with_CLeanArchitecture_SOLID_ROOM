@@ -7,16 +7,17 @@ import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.chan
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.channels.ChannelMedia
 
 fun ChannelDTO.toDomain() : ChannelEntity {
-    val channelEntity = ChannelEntity()
 
-    channelEntity.iconAsset = iconAsset?.url ?: ""
-    channelEntity.title = title ?: ""
-    if(!series.isNullOrEmpty())
-        channelEntity.channelMedia = series.map { it.toDomain() }
+    val media = if(!series.isNullOrEmpty())
+        series.map { it.toDomain() }
     else
-        channelEntity.channelMedia = latestMedia?.map { it.toDomain() } ?: emptyList()
+        latestMedia?.map { it.toDomain() } ?: emptyList()
 
-    return channelEntity
+    return ChannelEntity(
+        title = title ?: "",
+        iconAsset = iconAsset?.url ?: "",
+        channelMedia = media
+    )
 }
 
 private fun SeryDTO.toDomain() : ChannelMedia {

@@ -10,19 +10,18 @@ import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.type_conver
  */
 @Entity
 data class ChannelEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long = 0,
+    @PrimaryKey
+    var title: String,
 
-    var iconAsset: String? = null,//thumbnail url
-    var title: String? = null,
-    @TypeConverters(DataConverters::class)
+    var iconAsset: String,//thumbnail url
+
     var channelMedia: List<ChannelMedia> = emptyList(),//all series, if empty then all course
 )
 
 data class ChannelMedia(
-    var coverAsset: String? = null,//thumbnail url
-    var title: String? = null,
-    var type: String? = null,//either[image|video]
+    var coverAsset: String,//thumbnail url
+    var title: String,
+    var type: String,//either[image|video]
 )
 
 

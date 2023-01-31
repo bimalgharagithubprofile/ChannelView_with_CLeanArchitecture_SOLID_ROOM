@@ -42,9 +42,9 @@ class ChannelMediaAdapter(
         val item = differ.currentList[position]
 
         //thumbnail
-        if (!item.coverAsset.isNullOrEmpty()) {
+        if (item.coverAsset.isNotEmpty()) {
             holder.binding.ivMediaThumbnail.post {
-                holder.binding.ivMediaThumbnail.loadImage(item.coverAsset!!)
+                holder.binding.ivMediaThumbnail.loadImage(item.coverAsset)
             }
         } else
             holder.binding.ivMediaThumbnail.loadImage(R.mipmap.ic_logo)

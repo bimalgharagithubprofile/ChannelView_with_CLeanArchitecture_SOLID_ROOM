@@ -24,7 +24,7 @@ class AllChannelsAdapter(
 
     private val differCallback = object : DiffUtil.ItemCallback<ChannelEntity>(){
         override fun areItemsTheSame(oldItem: ChannelEntity, newItem: ChannelEntity): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.title == newItem.title
         }
 
         override fun areContentsTheSame(oldItem: ChannelEntity, newItem: ChannelEntity): Boolean {
@@ -72,8 +72,8 @@ class AllChannelsAdapter(
                 val item = differ.currentList[position-1]
 
                 //thumbnail
-                if(!item.iconAsset.isNullOrEmpty())
-                    holder.binding.ivHeaderChannelThumbnail.loadImage(item.iconAsset!!)
+                if(item.iconAsset.isNotEmpty())
+                    holder.binding.ivHeaderChannelThumbnail.loadImage(item.iconAsset)
                 else
                     holder.binding.ivHeaderChannelThumbnail.loadImage(R.mipmap.ic_logo_round)
 

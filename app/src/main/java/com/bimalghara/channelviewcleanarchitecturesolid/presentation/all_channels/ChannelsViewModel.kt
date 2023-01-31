@@ -101,15 +101,25 @@ class ChannelsViewModel @Inject constructor(
 
     private fun fetchChannelsDataFromCached() {
         _channelsLiveData.value = ResourceWrapper.Loading()
-        getChannelsFromLocalUseCase().onEach {
-            val existingList = channelsLiveData.value?.data ?: emptyList()
-            val completeList = existingList.plus(it)
-            if (completeList.isEmpty()) {
-                val ex = CustomException(cause = ERROR_NO_RECORDS)
-                showError(ex)
-                _channelsLiveData.value = ResourceWrapper.Error(ex)
-            } else {
-                _channelsLiveData.value = ResourceWrapper.Success(data = completeList)
+        getChannelsFromLocalUseCase().onEach { newList ->
+            if(newList.isNotEmpty()) {
+
+                val completeList:MutableList<ChannelEntity> = arrayListOf()
+                if(_channelsLiveData.value?.data != null){
+                    val existingList = _channelsLiveData.value!!.data!!.toMutableList()
+                    existingList.removeAll(newList)
+                    completeList.addAll(existingList.plus(newList).toSet().toList())
+                } else {
+                    completeList.addAll(newList.toSet().toList())
+                }
+
+                if (completeList.isEmpty()) {
+                    val ex = CustomException(cause = ERROR_NO_RECORDS)
+                    showError(ex)
+                    _channelsLiveData.value = ResourceWrapper.Error(ex)
+                } else {
+                    _channelsLiveData.value = ResourceWrapper.Success(data = completeList)
+                }
             }
         }.launchIn(viewModelScope)
     }

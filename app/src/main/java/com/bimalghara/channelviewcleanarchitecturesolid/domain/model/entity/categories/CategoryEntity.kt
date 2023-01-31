@@ -8,9 +8,7 @@ import androidx.room.PrimaryKey
  */
 @Entity
 data class CategoryEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long = 0,
-
-    var name: String? = null
+    @PrimaryKey
+    var name: String
 
 )

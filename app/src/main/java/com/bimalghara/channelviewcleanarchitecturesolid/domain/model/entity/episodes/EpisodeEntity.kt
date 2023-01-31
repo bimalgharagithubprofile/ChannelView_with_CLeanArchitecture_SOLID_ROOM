@@ -8,11 +8,10 @@ import androidx.room.PrimaryKey
  */
 @Entity
 data class EpisodeEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long = 0,
+    @PrimaryKey
+    var title: String,
 
-    var channel: String? = null,
-    var coverAsset: String? = null,
-    var title: String? = null
+    var channel: String,
+    var coverAsset: String
 
 )
