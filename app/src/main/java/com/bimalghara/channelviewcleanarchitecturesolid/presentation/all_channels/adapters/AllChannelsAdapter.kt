@@ -12,6 +12,7 @@ import com.bimalghara.channelviewcleanarchitecturesolid.R
 import com.bimalghara.channelviewcleanarchitecturesolid.databinding.ItemCategoriesWrapperBinding
 import com.bimalghara.channelviewcleanarchitecturesolid.databinding.ItemChannelsWrapperBinding
 import com.bimalghara.channelviewcleanarchitecturesolid.databinding.ItemEpisodesWrapperBinding
+import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.categories.CategoryEntity
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.channels.ChannelEntity
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.episodes.EpisodeEntity
 import com.bimalghara.channelviewcleanarchitecturesolid.utils.loadImage
@@ -26,13 +27,18 @@ class AllChannelsAdapter(
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val _episodes: MutableList<EpisodeEntity> = arrayListOf()
+    private val _categories: MutableList<CategoryEntity> = arrayListOf()
 
     fun setEpisodes(episodes: List<EpisodeEntity>) {
         _episodes.clear()
         _episodes.addAll(episodes)
-        Log.e("chk", "pushed ep s: ${_episodes.size}")
-
         notifyItemChanged(0)
+    }
+    fun setCategories(categories: List<CategoryEntity>) {
+        _categories.clear()
+        _categories.addAll(categories)
+
+        notifyItemChanged(differ.currentList.size + 1)
     }
 
     private val differCallback = object : DiffUtil.ItemCallback<ChannelEntity>(){
@@ -86,8 +92,13 @@ class AllChannelsAdapter(
                 episodesMediaAdapter.differ.submitList(_episodes.toImmutableList())
             }
             is CategoriesWrapperViewHolder -> {
-                //val itemCategories =
 
+                //CategoriesRecyclerview
+                val categoriesAdapter = CategoriesAdapter(context)
+                holder.binding.rvCategories.apply {
+                    this.adapter = categoriesAdapter
+                }
+                categoriesAdapter.differ.submitList(_categories.toImmutableList())
             }
             is ChannelsWrapperViewHolder -> {
                 val itemChannel = differ.currentList[position-1]

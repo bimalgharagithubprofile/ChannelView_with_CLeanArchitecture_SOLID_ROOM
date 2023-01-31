@@ -91,6 +91,18 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>(),
                 }
             }
         }
+
+        observe(channelsViewModel.categoriesLiveData) {
+            Log.d(logTag, "observe categoriesLiveData | $it")
+            when (it) {
+                is ResourceWrapper.Success -> {
+                    if(!it.data.isNullOrEmpty()) {
+                        allChannelsAdapter.setCategories(it.data)
+                    }
+                }
+                else -> Unit
+            }
+        }
     }
 
     override fun onRefresh() {
