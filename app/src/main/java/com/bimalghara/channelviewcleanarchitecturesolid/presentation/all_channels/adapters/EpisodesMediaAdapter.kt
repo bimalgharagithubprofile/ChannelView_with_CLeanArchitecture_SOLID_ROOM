@@ -1,6 +1,7 @@
 package com.bimalghara.channelviewcleanarchitecturesolid.presentation.all_channels.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -57,6 +58,7 @@ class EpisodesMediaAdapter(
     }
 
     override fun getItemCount(): Int {
+        Log.e("chk", "ep s: ${differ.currentList.size}")
         return differ.currentList.size
     }
 

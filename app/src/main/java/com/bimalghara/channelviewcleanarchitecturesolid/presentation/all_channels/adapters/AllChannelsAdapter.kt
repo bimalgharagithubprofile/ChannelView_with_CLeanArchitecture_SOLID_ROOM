@@ -1,6 +1,7 @@
 package com.bimalghara.channelviewcleanarchitecturesolid.presentation.all_channels.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -29,7 +30,9 @@ class AllChannelsAdapter(
     fun setEpisodes(episodes: List<EpisodeEntity>) {
         _episodes.clear()
         _episodes.addAll(episodes)
-        //NotifyItem(0)  eeeeeeeeeeeeeeeee
+        Log.e("chk", "pushed ep s: ${_episodes.size}")
+
+        notifyItemChanged(0)
     }
 
     private val differCallback = object : DiffUtil.ItemCallback<ChannelEntity>(){
