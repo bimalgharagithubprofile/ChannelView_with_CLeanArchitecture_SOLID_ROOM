@@ -1,5 +1,6 @@
 package com.bimalghara.channelviewcleanarchitecturesolid.domain.use_case
 
+import com.bimalghara.channelviewcleanarchitecturesolid.common.dispatcher.DispatcherProviderSource
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.episodes.EpisodeEntity
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.repository.EpisodesRepositorySource
 import kotlinx.coroutines.flow.Flow
@@ -11,12 +12,12 @@ import kotlin.coroutines.CoroutineContext
  */
 
 class GetEpisodesFromLocalUseCase(
-    private val ioDispatcher: CoroutineContext,
+    private val dispatcherProviderSource: DispatcherProviderSource,
     private val episodesRepositorySource: EpisodesRepositorySource
 ) {
 
     operator fun invoke(): Flow<List<EpisodeEntity>> {
-        return episodesRepositorySource.getEpisodeListFromLocal().flowOn(ioDispatcher)
+        return episodesRepositorySource.getEpisodeListFromLocal().flowOn(dispatcherProviderSource.io)
 
     }
 

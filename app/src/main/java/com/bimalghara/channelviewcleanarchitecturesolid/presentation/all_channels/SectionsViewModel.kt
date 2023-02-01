@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.bimalghara.channelviewcleanarchitecturesolid.common.dispatcher.DispatcherProviderSource
 import com.bimalghara.channelviewcleanarchitecturesolid.data.error.CustomException
 import com.bimalghara.channelviewcleanarchitecturesolid.data.error.ERROR_NO_INTERNET_CONNECTION
 import com.bimalghara.channelviewcleanarchitecturesolid.data.error.ERROR_NO_RECORDS
@@ -29,7 +30,7 @@ import kotlin.coroutines.CoroutineContext
 
 @HiltViewModel
 class SectionsViewModel @Inject constructor(
-    private val ioDispatcher: CoroutineContext,
+    private val dispatcherProviderSource: DispatcherProviderSource,
     private val networkConnectivitySource: NetworkConnectivitySource,
     errorDetailsUseCase: GetErrorDetailsUseCase,
     private val getCategoriesFromLocalUseCase: GetCategoriesFromLocalUseCase,
@@ -58,7 +59,7 @@ class SectionsViewModel @Inject constructor(
     }
 
     private suspend fun getNetworkStatus(): NetworkConnectivitySource.Status {
-        val result = networkConnectivitySource.getStatus(ioDispatcher)
+        val result = networkConnectivitySource.getStatus(dispatcherProviderSource.io)
         Log.i(logTag, "network status: $result")
         return result
     }
@@ -83,8 +84,8 @@ class SectionsViewModel @Inject constructor(
     /*
     * load data from local database
     */
-    private fun getCategoriesDataFromCached() {
-        _categoriesLiveData.value = ResourceWrapper.Loading()
+    private fun getCategoriesDataFromCached() = viewModelScope.launch(dispatcherProviderSource.io) {
+        _categoriesLiveData.postValue(ResourceWrapper.Loading())
         getCategoriesFromLocalUseCase().onEach { newList ->
             if (newList.isNotEmpty()) {
                 val completeList: MutableList<CategoryEntity> = arrayListOf()
@@ -99,17 +100,16 @@ class SectionsViewModel @Inject constructor(
                 if (completeList.isEmpty()) {
                     val ex = CustomException(cause = ERROR_NO_RECORDS)
                     showError(ex)
-                    _categoriesLiveData.value = ResourceWrapper.Error(ex)
+                    _categoriesLiveData.postValue(ResourceWrapper.Error(ex))
                 } else {
-                    _categoriesLiveData.value =
-                        ResourceWrapper.Success(data = completeList)
+                    _categoriesLiveData.postValue(ResourceWrapper.Success(data = completeList))
                 }
             }
         }.launchIn(viewModelScope)
     }
 
-    private fun getChannelsDataFromCached() {
-        _channelsLiveData.value = ResourceWrapper.Loading()
+    private fun getChannelsDataFromCached() = viewModelScope.launch(dispatcherProviderSource.io) {
+        _channelsLiveData.postValue(ResourceWrapper.Loading())
         getChannelsFromLocalUseCase().onEach { newList ->
             if (newList.isNotEmpty()) {
 
@@ -125,16 +125,16 @@ class SectionsViewModel @Inject constructor(
                 if (completeList.isEmpty()) {
                     val ex = CustomException(cause = ERROR_NO_RECORDS)
                     showError(ex)
-                    _channelsLiveData.value = ResourceWrapper.Error(ex)
+                    _channelsLiveData.postValue(ResourceWrapper.Error(ex))
                 } else {
-                    _channelsLiveData.value = ResourceWrapper.Success(data = completeList)
+                    _channelsLiveData.postValue(ResourceWrapper.Success(data = completeList))
                 }
             }
         }.launchIn(viewModelScope)
     }
 
-    private fun getEpisodesDataFromCached() {
-        _episodesLiveData.value = ResourceWrapper.Loading()
+    private fun getEpisodesDataFromCached() = viewModelScope.launch(dispatcherProviderSource.io) {
+        _episodesLiveData.postValue(ResourceWrapper.Loading())
         getEpisodesFromLocalUseCase().onEach { newList ->
             if (newList.isNotEmpty()) {
 
@@ -150,10 +150,9 @@ class SectionsViewModel @Inject constructor(
                 if (completeList.isEmpty()) {
                     val ex = CustomException(cause = ERROR_NO_RECORDS)
                     showError(ex)
-                    _episodesLiveData.value = ResourceWrapper.Error(ex)
+                    _episodesLiveData.postValue(ResourceWrapper.Error(ex))
                 } else {
-                    _episodesLiveData.value =
-                        ResourceWrapper.Success(data = completeList)
+                    _episodesLiveData.postValue(ResourceWrapper.Success(data = completeList))
                 }
             }
         }.launchIn(viewModelScope)

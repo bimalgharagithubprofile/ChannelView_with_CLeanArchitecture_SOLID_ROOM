@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bimalghara.channelviewcleanarchitecturesolid.common.dispatcher.DispatcherProviderSource
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.use_case.RequestCategoriesFromNetworkUseCase
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.use_case.RequestChannelsFromNetworkUseCase
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.use_case.RequestEpisodesFromNetworkUseCase
@@ -22,7 +23,7 @@ import kotlin.coroutines.CoroutineContext
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val ioDispatcher: CoroutineContext,
+    private val dispatcherProviderSource: DispatcherProviderSource,
     private val networkConnectivitySource: NetworkConnectivitySource,
     private val requestCategoriesFromNetworkUseCase: RequestCategoriesFromNetworkUseCase,
     private val requestChannelsFromNetworkUseCase: RequestChannelsFromNetworkUseCase,
@@ -45,7 +46,7 @@ class SplashViewModel @Inject constructor(
     }
 
     private fun getNetworkStatus() = viewModelScope.launch {
-        val networkStatus = networkConnectivitySource.getStatus(ioDispatcher)
+        val networkStatus = networkConnectivitySource.getStatus(dispatcherProviderSource.io)
         Log.i(logTag, "network status: $networkStatus")
         if (networkStatus == NetworkConnectivitySource.Status.Available){
             downloadAllChannelsDataFromCloud()

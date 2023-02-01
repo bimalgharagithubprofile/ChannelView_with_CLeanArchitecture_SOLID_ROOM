@@ -1,0 +1,22 @@
+package com.bimalghara.channelviewcleanarchitecturesolid.common
+
+import com.bimalghara.channelviewcleanarchitecturesolid.common.dispatcher.DispatcherProviderSource
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.StandardTestDispatcher
+
+@ExperimentalCoroutinesApi
+class TestDispatcherProvider: DispatcherProviderSource {
+
+    private val testDispatcher = StandardTestDispatcher()
+
+
+    override val main
+        get() = testDispatcher
+    override val default
+        get() = testDispatcher
+    override val io
+        get() = testDispatcher
+    override val unconfined
+        get() = testDispatcher
+}

@@ -1,6 +1,8 @@
 package com.bimalghara.channelviewcleanarchitecturesolid.common.di
 
 import android.content.Context
+import com.bimalghara.channelviewcleanarchitecturesolid.common.dispatcher.DefaultDispatcherProvider
+import com.bimalghara.channelviewcleanarchitecturesolid.common.dispatcher.DispatcherProviderSource
 import com.bimalghara.channelviewcleanarchitecturesolid.utils.NetworkConnectivityImpl
 import com.bimalghara.channelviewcleanarchitecturesolid.utils.NetworkConnectivitySource
 import dagger.Module
@@ -8,19 +10,16 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
-import kotlin.coroutines.CoroutineContext
 
-/* instantiate class */
 @InstallIn(SingletonComponent::class)
 @Module
-class AppModuleNetworkConnectivity {
+class AppModule {
 
     @Provides
     @Singleton
-    fun provideCoroutineContextIO(): CoroutineContext {
-        return Dispatchers.IO
+    fun provideDefaultDispatcher(): DispatcherProviderSource {
+        return DefaultDispatcherProvider()
     }
 
     @Provides

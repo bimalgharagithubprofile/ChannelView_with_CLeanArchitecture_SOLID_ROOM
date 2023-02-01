@@ -1,0 +1,3 @@
+package com.bimalghara.channelviewcleanarchitecturesolid.common.dispatcher
+
+class DefaultDispatcherProvider : DispatcherProviderSource

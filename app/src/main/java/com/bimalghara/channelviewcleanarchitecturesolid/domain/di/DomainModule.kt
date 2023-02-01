@@ -1,5 +1,6 @@
 package com.bimalghara.channelviewcleanarchitecturesolid.domain.di
 
+import com.bimalghara.channelviewcleanarchitecturesolid.common.dispatcher.DispatcherProviderSource
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.repository.CategoriesRepositorySource
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.repository.ChannelsRepositorySource
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.repository.EpisodesRepositorySource
@@ -9,7 +10,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlin.coroutines.CoroutineContext
 
 /**
  * Created by BimalGhara
@@ -20,35 +20,35 @@ import kotlin.coroutines.CoroutineContext
 class DomainModule {
 
     @Provides
-    fun provideGetErrorDetailsUseCase(errorDetailsSource: ErrorDetailsSource): GetErrorDetailsUseCase{
-        return GetErrorDetailsUseCase(errorDetailsSource = errorDetailsSource)
+    fun provideGetErrorDetailsUseCase(dispatcherProviderSource: DispatcherProviderSource, errorDetailsSource: ErrorDetailsSource): GetErrorDetailsUseCase{
+        return GetErrorDetailsUseCase(dispatcherProviderSource = dispatcherProviderSource, errorDetailsSource = errorDetailsSource)
     }
 
     @Provides
-    fun provideGetCategoriesFromNetworkUseCase(coroutineContext: CoroutineContext, categoriesRepositorySource: CategoriesRepositorySource): RequestCategoriesFromNetworkUseCase {
-        return RequestCategoriesFromNetworkUseCase(ioDispatcher = coroutineContext, categoriesRepositorySource = categoriesRepositorySource)
+    fun provideGetCategoriesFromNetworkUseCase(dispatcherProviderSource: DispatcherProviderSource, categoriesRepositorySource: CategoriesRepositorySource): RequestCategoriesFromNetworkUseCase {
+        return RequestCategoriesFromNetworkUseCase(dispatcherProviderSource = dispatcherProviderSource, categoriesRepositorySource = categoriesRepositorySource)
     }
     @Provides
-    fun provideGetCategoriesFromLocalUseCase(coroutineContext: CoroutineContext, categoriesRepositorySource: CategoriesRepositorySource): GetCategoriesFromLocalUseCase {
-        return GetCategoriesFromLocalUseCase(ioDispatcher = coroutineContext, categoriesRepositorySource = categoriesRepositorySource)
-    }
-
-    @Provides
-    fun provideGetChannelsFromNetworkUseCase(coroutineContext: CoroutineContext, channelsRepositorySource: ChannelsRepositorySource): RequestChannelsFromNetworkUseCase {
-        return RequestChannelsFromNetworkUseCase(ioDispatcher = coroutineContext, channelsRepositorySource = channelsRepositorySource)
-    }
-    @Provides
-    fun provideGetChannelsFromLocalUseCase(coroutineContext: CoroutineContext, channelsRepositorySource: ChannelsRepositorySource): GetChannelsFromLocalUseCase {
-        return GetChannelsFromLocalUseCase(ioDispatcher = coroutineContext, channelsRepositorySource = channelsRepositorySource)
+    fun provideGetCategoriesFromLocalUseCase(dispatcherProviderSource: DispatcherProviderSource, categoriesRepositorySource: CategoriesRepositorySource): GetCategoriesFromLocalUseCase {
+        return GetCategoriesFromLocalUseCase(dispatcherProviderSource = dispatcherProviderSource, categoriesRepositorySource = categoriesRepositorySource)
     }
 
     @Provides
-    fun provideGetEpisodesFromNetworkUseCase(coroutineContext: CoroutineContext, episodesRepositorySource: EpisodesRepositorySource): RequestEpisodesFromNetworkUseCase {
-        return RequestEpisodesFromNetworkUseCase(ioDispatcher = coroutineContext, episodesRepositorySource = episodesRepositorySource)
+    fun provideGetChannelsFromNetworkUseCase(dispatcherProviderSource: DispatcherProviderSource, channelsRepositorySource: ChannelsRepositorySource): RequestChannelsFromNetworkUseCase {
+        return RequestChannelsFromNetworkUseCase(dispatcherProviderSource = dispatcherProviderSource, channelsRepositorySource = channelsRepositorySource)
     }
     @Provides
-    fun provideGetEpisodesFromLocalUseCase(coroutineContext: CoroutineContext, episodesRepositorySource: EpisodesRepositorySource): GetEpisodesFromLocalUseCase {
-        return GetEpisodesFromLocalUseCase(ioDispatcher = coroutineContext, episodesRepositorySource = episodesRepositorySource)
+    fun provideGetChannelsFromLocalUseCase(dispatcherProviderSource: DispatcherProviderSource, channelsRepositorySource: ChannelsRepositorySource): GetChannelsFromLocalUseCase {
+        return GetChannelsFromLocalUseCase(dispatcherProviderSource = dispatcherProviderSource, channelsRepositorySource = channelsRepositorySource)
+    }
+
+    @Provides
+    fun provideGetEpisodesFromNetworkUseCase(dispatcherProviderSource: DispatcherProviderSource, episodesRepositorySource: EpisodesRepositorySource): RequestEpisodesFromNetworkUseCase {
+        return RequestEpisodesFromNetworkUseCase(dispatcherProviderSource = dispatcherProviderSource, episodesRepositorySource = episodesRepositorySource)
+    }
+    @Provides
+    fun provideGetEpisodesFromLocalUseCase(dispatcherProviderSource: DispatcherProviderSource, episodesRepositorySource: EpisodesRepositorySource): GetEpisodesFromLocalUseCase {
+        return GetEpisodesFromLocalUseCase(dispatcherProviderSource = dispatcherProviderSource, episodesRepositorySource = episodesRepositorySource)
     }
 
 }
