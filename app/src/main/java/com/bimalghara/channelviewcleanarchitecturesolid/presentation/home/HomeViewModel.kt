@@ -1,4 +1,4 @@
-package com.bimalghara.channelviewcleanarchitecturesolid.presentation.all_channels
+package com.bimalghara.channelviewcleanarchitecturesolid.presentation.home
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -22,14 +22,13 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.coroutines.CoroutineContext
 
 /**
  * Created by BimalGhara
  */
 
 @HiltViewModel
-class SectionsViewModel @Inject constructor(
+class HomeViewModel @Inject constructor(
     private val dispatcherProviderSource: DispatcherProviderSource,
     private val networkConnectivitySource: NetworkConnectivitySource,
     errorDetailsUseCase: GetErrorDetailsUseCase,

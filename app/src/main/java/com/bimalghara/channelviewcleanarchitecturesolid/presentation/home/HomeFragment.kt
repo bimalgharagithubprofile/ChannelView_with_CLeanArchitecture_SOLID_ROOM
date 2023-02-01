@@ -1,4 +1,4 @@
-package com.bimalghara.channelviewcleanarchitecturesolid.presentation.all_channels
+package com.bimalghara.channelviewcleanarchitecturesolid.presentation.home
 
 import android.os.Bundle
 import android.util.Log
@@ -9,8 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bimalghara.channelviewcleanarchitecturesolid.R
-import com.bimalghara.channelviewcleanarchitecturesolid.databinding.FragmentSectionsBinding
-import com.bimalghara.channelviewcleanarchitecturesolid.presentation.all_channels.adapters.AllSectionsAdapter
+import com.bimalghara.channelviewcleanarchitecturesolid.databinding.FragmentHomeBinding
+import com.bimalghara.channelviewcleanarchitecturesolid.presentation.home.adapters.AllSectionsAdapter
 import com.bimalghara.channelviewcleanarchitecturesolid.presentation.base.BaseFragment
 import com.bimalghara.channelviewcleanarchitecturesolid.utils.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,11 +20,11 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 
 @AndroidEntryPoint
-class SectionsFragment : BaseFragment<FragmentSectionsBinding>(),
+class HomeFragment : BaseFragment<FragmentHomeBinding>(),
     SwipeRefreshLayout.OnRefreshListener {
     private val logTag = javaClass.simpleName
 
-    private val sectionsViewModel: SectionsViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by viewModels()
 
     private lateinit var allSectionsAdapter: AllSectionsAdapter
 
@@ -32,7 +32,7 @@ class SectionsFragment : BaseFragment<FragmentSectionsBinding>(),
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = FragmentSectionsBinding.inflate(inflater, container, false)
+    ) = FragmentHomeBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -52,9 +52,9 @@ class SectionsFragment : BaseFragment<FragmentSectionsBinding>(),
     }
 
     override fun observeViewModel() {
-        observeError(sectionsViewModel.errorSingleEvent)
+        observeError(homeViewModel.errorSingleEvent)
 
-        observe(sectionsViewModel.episodesLiveData) {
+        observe(homeViewModel.episodesLiveData) {
             Log.d(logTag, "observe episodesLiveData | $it")
             when (it) {
                 is ResourceWrapper.Loading -> {
@@ -72,7 +72,7 @@ class SectionsFragment : BaseFragment<FragmentSectionsBinding>(),
             }
         }
 
-        observe(sectionsViewModel.channelsLiveData) {
+        observe(homeViewModel.channelsLiveData) {
             Log.d(logTag, "observe channelsLiveData | $it")
             when (it) {
                 is ResourceWrapper.Loading -> {
@@ -90,7 +90,7 @@ class SectionsFragment : BaseFragment<FragmentSectionsBinding>(),
             }
         }
 
-        observe(sectionsViewModel.categoriesLiveData) {
+        observe(homeViewModel.categoriesLiveData) {
             Log.d(logTag, "observe categoriesLiveData | $it")
             when (it) {
                 is ResourceWrapper.Success -> {
@@ -104,7 +104,7 @@ class SectionsFragment : BaseFragment<FragmentSectionsBinding>(),
     }
 
     override fun onRefresh() {
-        sectionsViewModel.refreshContent()
+        homeViewModel.refreshContent()
         binding.swipeContainer.isRefreshing = false
     }
 

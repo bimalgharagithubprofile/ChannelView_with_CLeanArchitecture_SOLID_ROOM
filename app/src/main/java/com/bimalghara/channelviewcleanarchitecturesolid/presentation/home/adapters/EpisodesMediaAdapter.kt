@@ -1,4 +1,4 @@
-package com.bimalghara.channelviewcleanarchitecturesolid.presentation.all_channels.adapters
+package com.bimalghara.channelviewcleanarchitecturesolid.presentation.home.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,24 +8,24 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bimalghara.channelviewcleanarchitecturesolid.R
 import com.bimalghara.channelviewcleanarchitecturesolid.databinding.ItemMediaBinding
-import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.channels.ChannelMedia
+import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.episodes.EpisodeEntity
 import com.bimalghara.channelviewcleanarchitecturesolid.utils.loadImage
-import com.bimalghara.channelviewcleanarchitecturesolid.utils.toGone
+import com.bimalghara.channelviewcleanarchitecturesolid.utils.toVisible
 
 /**
  * Created by BimalGhara
  */
 
-class ChannelMediaAdapter(
+class EpisodesMediaAdapter(
     val context: Context
-): RecyclerView.Adapter<ChannelMediaAdapter.ViewHolder>() {
+): RecyclerView.Adapter<EpisodesMediaAdapter.ViewHolder>() {
 
-    private val differCallback = object : DiffUtil.ItemCallback<ChannelMedia>(){
-        override fun areItemsTheSame(oldItem: ChannelMedia, newItem: ChannelMedia): Boolean {
+    private val differCallback = object : DiffUtil.ItemCallback<EpisodeEntity>(){
+        override fun areItemsTheSame(oldItem: EpisodeEntity, newItem: EpisodeEntity): Boolean {
             return oldItem.title == newItem.title
         }
 
-        override fun areContentsTheSame(oldItem: ChannelMedia, newItem: ChannelMedia): Boolean {
+        override fun areContentsTheSame(oldItem: EpisodeEntity, newItem: EpisodeEntity): Boolean {
             return oldItem == newItem
         }
     }
@@ -33,12 +33,12 @@ class ChannelMediaAdapter(
 
     inner class ViewHolder(val binding: ItemMediaBinding): RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChannelMediaAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EpisodesMediaAdapter.ViewHolder {
         val binding = ItemMediaBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ChannelMediaAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: EpisodesMediaAdapter.ViewHolder, position: Int) {
         val item = differ.currentList[position]
 
         //thumbnail
@@ -51,7 +51,8 @@ class ChannelMediaAdapter(
 
         //text
         holder.binding.tvMediaTitle.text = item.title
-        holder.binding.tvMediaTail.toGone()
+        holder.binding.tvMediaTail.text = item.channel
+        holder.binding.tvMediaTail.toVisible()
 
     }
 

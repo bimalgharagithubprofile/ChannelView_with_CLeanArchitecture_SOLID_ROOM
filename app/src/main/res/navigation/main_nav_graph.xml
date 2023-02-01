@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/channelsFragment"
-        android:name="com.bimalghara.channelviewcleanarchitecturesolid.presentation.all_channels.SectionsFragment"
+        android:name="com.bimalghara.channelviewcleanarchitecturesolid.presentation.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_sections" />
+        tools:layout="@layout/fragment_home" />
 </navigation>

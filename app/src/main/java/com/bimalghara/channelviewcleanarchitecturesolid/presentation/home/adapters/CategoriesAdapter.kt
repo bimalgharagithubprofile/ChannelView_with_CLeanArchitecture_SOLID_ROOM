@@ -1,4 +1,4 @@
-package com.bimalghara.channelviewcleanarchitecturesolid.presentation.all_channels.adapters
+package com.bimalghara.channelviewcleanarchitecturesolid.presentation.home.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
