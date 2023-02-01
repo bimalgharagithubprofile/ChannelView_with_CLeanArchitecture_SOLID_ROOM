@@ -18,12 +18,12 @@ class RequestCategoriesFromNetworkUseCase(
     private val categoriesRepositorySource: CategoriesRepositorySource
 ) {
 
-    operator fun invoke(): Flow<ResourceWrapper<Boolean>> = flow {
+    operator fun invoke(): Flow<ResourceWrapper<Int>> = flow {
         emit(ResourceWrapper.Loading())
 
         try {
-            categoriesRepositorySource.requestCategoryListFromNetwork()
-            emit(ResourceWrapper.Success(data = true))
+            val count = categoriesRepositorySource.requestCategoryListFromNetwork()
+            emit(ResourceWrapper.Success(data = count))
         } catch (e: CustomException) {
             emit(ResourceWrapper.Error(e))
         }

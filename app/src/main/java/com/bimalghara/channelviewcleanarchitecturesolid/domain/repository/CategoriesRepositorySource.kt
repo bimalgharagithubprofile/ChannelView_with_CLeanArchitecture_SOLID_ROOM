@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface CategoriesRepositorySource {
 
-    suspend fun requestCategoryListFromNetwork()
+    suspend fun requestCategoryListFromNetwork(): Int
 
     //can't be suspending because it's Flow
     fun getCategoryListFromLocal(): Flow<List<CategoryEntity>>

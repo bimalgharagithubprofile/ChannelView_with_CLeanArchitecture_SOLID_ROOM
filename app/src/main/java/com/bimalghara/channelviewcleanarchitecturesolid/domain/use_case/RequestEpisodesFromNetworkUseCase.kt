@@ -18,12 +18,12 @@ class RequestEpisodesFromNetworkUseCase(
     private val episodesRepositorySource: EpisodesRepositorySource
 ) {
 
-    operator fun invoke(): Flow<ResourceWrapper<Boolean>> = flow {
+    operator fun invoke(): Flow<ResourceWrapper<Int>> = flow {
         emit(ResourceWrapper.Loading())
 
         try {
-            episodesRepositorySource.requestEpisodeListFromNetwork()
-            emit(ResourceWrapper.Success(data = true))
+            val count = episodesRepositorySource.requestEpisodeListFromNetwork()
+            emit(ResourceWrapper.Success(data = count))
         } catch (e: CustomException) {
             emit(ResourceWrapper.Error(e))
         }
