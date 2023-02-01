@@ -32,7 +32,8 @@ class AllSectionsAdapter(
 
     fun setEpisodes(episodes: List<EpisodeEntity>) {
         _episodes.clear()
-        _episodes.addAll(episodes)
+        val limit = if(episodes.size > 6) 6 else episodes.size
+        _episodes.addAll(episodes.subList(0,limit))
         notifyItemChanged(0)
     }
     fun setCategories(categories: List<CategoryEntity>) {
@@ -132,7 +133,8 @@ class AllSectionsAdapter(
                     this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     this.adapter = channelMediaAdapter
                 }
-                channelMediaAdapter.differ.submitList(itemChannel.channelMedia)
+                val limit = if(itemChannel.channelMedia.size > 6) 6 else itemChannel.channelMedia.size
+                channelMediaAdapter.differ.submitList(itemChannel.channelMedia.subList(0, limit))
             }
         }
 
