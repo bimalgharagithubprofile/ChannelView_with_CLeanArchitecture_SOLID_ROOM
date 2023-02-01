@@ -23,8 +23,8 @@ class ChannelsRepositoryImpl @Inject constructor(
     ChannelsRepositorySource {
     private val logTag = javaClass.simpleName
 
-    override suspend fun requestChannelsListFromNetwork() {
-        try {
+    override suspend fun requestChannelsListFromNetwork(): Int {
+        return try {
             val result = remoteDataSource.requestChannels()
 
             //convert DTO to Entity
@@ -38,6 +38,8 @@ class ChannelsRepositoryImpl @Inject constructor(
             if (response.isEmpty()) {
                 Log.e(logTag, "Failed to cache Channels Records!")
             }
+
+            convertedChannelsList.size
 
         } catch (e: CustomException) {
             throw e

@@ -18,12 +18,12 @@ class RequestChannelsFromNetworkUseCase(
     private val channelsRepositorySource: ChannelsRepositorySource
 ) {
 
-    operator fun invoke(): Flow<ResourceWrapper<Boolean>> = flow {
+    operator fun invoke(): Flow<ResourceWrapper<Int>> = flow {
         emit(ResourceWrapper.Loading())
 
         try {
-            channelsRepositorySource.requestChannelsListFromNetwork()
-            emit(ResourceWrapper.Success(data = true))
+            val count = channelsRepositorySource.requestChannelsListFromNetwork()
+            emit(ResourceWrapper.Success(data = count))
         } catch (e: CustomException) {
             emit(ResourceWrapper.Error(e))
         }
