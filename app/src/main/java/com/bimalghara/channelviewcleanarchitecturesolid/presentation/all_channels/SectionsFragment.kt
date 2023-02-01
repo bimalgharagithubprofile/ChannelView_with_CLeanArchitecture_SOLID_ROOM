@@ -9,63 +9,61 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bimalghara.channelviewcleanarchitecturesolid.R
-import com.bimalghara.channelviewcleanarchitecturesolid.databinding.FragmentChannelsBinding
-import com.bimalghara.channelviewcleanarchitecturesolid.presentation.all_channels.adapters.AllChannelsAdapter
+import com.bimalghara.channelviewcleanarchitecturesolid.databinding.FragmentSectionsBinding
+import com.bimalghara.channelviewcleanarchitecturesolid.presentation.all_channels.adapters.AllSectionsAdapter
 import com.bimalghara.channelviewcleanarchitecturesolid.presentation.base.BaseFragment
 import com.bimalghara.channelviewcleanarchitecturesolid.utils.*
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 
 /**
  * Created by BimalGhara
  */
 
 @AndroidEntryPoint
-class ChannelsFragment : BaseFragment<FragmentChannelsBinding>(),
+class SectionsFragment : BaseFragment<FragmentSectionsBinding>(),
     SwipeRefreshLayout.OnRefreshListener {
     private val logTag = javaClass.simpleName
 
-    private val channelsViewModel: ChannelsViewModel by viewModels()
+    private val sectionsViewModel: SectionsViewModel by viewModels()
 
-    private lateinit var allChannelsAdapter: AllChannelsAdapter
+    private lateinit var allSectionsAdapter: AllSectionsAdapter
 
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = FragmentChannelsBinding.inflate(inflater, container, false)
+    ) = FragmentSectionsBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupAllChannelsRecyclerview()
+        setupAllSectionsRecyclerview()
 
         binding.swipeContainer.setOnRefreshListener(this)
     }
 
-    private fun setupAllChannelsRecyclerview() {
-        allChannelsAdapter = AllChannelsAdapter(requireContext())
-        binding.rvAllChannels.apply {
+    private fun setupAllSectionsRecyclerview() {
+        allSectionsAdapter = AllSectionsAdapter(requireContext())
+        binding.rvAllSections.apply {
             this.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            this.adapter = allChannelsAdapter
+            this.adapter = allSectionsAdapter
             this.addItemDecoration(RecyclerViewItemDecoration(requireContext(), R.drawable.divider))
         }
     }
 
     override fun observeViewModel() {
-        observeError(channelsViewModel.errorSingleEvent)
+        observeError(sectionsViewModel.errorSingleEvent)
 
-        observe(channelsViewModel.episodesLiveData) {
+        observe(sectionsViewModel.episodesLiveData) {
             Log.d(logTag, "observe episodesLiveData | $it")
             when (it) {
                 is ResourceWrapper.Loading -> {
                 }
                 is ResourceWrapper.Success -> {
                     if(!it.data.isNullOrEmpty()) {
-                        allChannelsAdapter.setEpisodes(it.data)
+                        allSectionsAdapter.setEpisodes(it.data)
                         binding.shimmer.toGone()
-                        binding.rvAllChannels.toVisible()
+                        binding.rvAllSections.toVisible()
                     }
                 }
                 else -> {
@@ -74,16 +72,16 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>(),
             }
         }
 
-        observe(channelsViewModel.channelsLiveData) {
+        observe(sectionsViewModel.channelsLiveData) {
             Log.d(logTag, "observe channelsLiveData | $it")
             when (it) {
                 is ResourceWrapper.Loading -> {
                 }
                 is ResourceWrapper.Success -> {
                     if(!it.data.isNullOrEmpty()) {
-                        allChannelsAdapter.differ.submitList(it.data)
+                        allSectionsAdapter.differ.submitList(it.data)
                         binding.shimmer.toGone()
-                        binding.rvAllChannels.toVisible()
+                        binding.rvAllSections.toVisible()
                     }
                 }
                 else -> {
@@ -92,12 +90,12 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>(),
             }
         }
 
-        observe(channelsViewModel.categoriesLiveData) {
+        observe(sectionsViewModel.categoriesLiveData) {
             Log.d(logTag, "observe categoriesLiveData | $it")
             when (it) {
                 is ResourceWrapper.Success -> {
                     if(!it.data.isNullOrEmpty()) {
-                        allChannelsAdapter.setCategories(it.data)
+                        allSectionsAdapter.setCategories(it.data)
                     }
                 }
                 else -> Unit
@@ -106,7 +104,7 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>(),
     }
 
     override fun onRefresh() {
-        channelsViewModel.refreshContent()
+        sectionsViewModel.refreshContent()
         binding.swipeContainer.isRefreshing = false
     }
 

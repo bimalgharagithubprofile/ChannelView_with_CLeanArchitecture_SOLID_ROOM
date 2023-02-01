@@ -17,7 +17,6 @@ import com.bimalghara.channelviewcleanarchitecturesolid.utils.ResourceWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -29,7 +28,7 @@ import kotlin.coroutines.CoroutineContext
  */
 
 @HiltViewModel
-class ChannelsViewModel @Inject constructor(
+class SectionsViewModel @Inject constructor(
     private val ioDispatcher: CoroutineContext,
     private val networkConnectivitySource: NetworkConnectivitySource,
     errorDetailsUseCase: GetErrorDetailsUseCase,
@@ -55,28 +54,28 @@ class ChannelsViewModel @Inject constructor(
     val episodesLiveData: LiveData<ResourceWrapper<List<EpisodeEntity>>> get() = _episodesLiveData
 
     init {
-        loadAllChannelsData()
+        loadAllSectionsData()
     }
 
-    private suspend fun observeNetworkStatus(): NetworkConnectivitySource.Status {
+    private suspend fun getNetworkStatus(): NetworkConnectivitySource.Status {
         val result = networkConnectivitySource.getStatus(ioDispatcher)
         Log.i(logTag, "network status: $result")
         return result
     }
 
-    private fun loadAllChannelsData() {
-        fetchEpisodesDataFromCached()
-        fetchChannelsDataFromCached()
-        fetchCategoriesDataFromCached()
+    private fun loadAllSectionsData() {
+        getEpisodesDataFromCached()
+        getChannelsDataFromCached()
+        getCategoriesDataFromCached()
     }
 
     fun refreshContent() = viewModelScope.launch {
-        val networkStatus = async { observeNetworkStatus() }.await()
+        val networkStatus = async { getNetworkStatus() }.await()
 
         if (networkStatus != NetworkConnectivitySource.Status.Available) {
             showError(CustomException(cause = ERROR_NO_INTERNET_CONNECTION))//just to notify user about no-internet
         } else {
-            downloadAllChannelsDataFromCloud()
+            requestAllSectionsDataFromCloud()
         }
     }
 
@@ -84,7 +83,7 @@ class ChannelsViewModel @Inject constructor(
     /*
     * load data from local database
     */
-    private fun fetchCategoriesDataFromCached() {
+    private fun getCategoriesDataFromCached() {
         _categoriesLiveData.value = ResourceWrapper.Loading()
         getCategoriesFromLocalUseCase().onEach { newList ->
             if (newList.isNotEmpty()) {
@@ -109,7 +108,7 @@ class ChannelsViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    private fun fetchChannelsDataFromCached() {
+    private fun getChannelsDataFromCached() {
         _channelsLiveData.value = ResourceWrapper.Loading()
         getChannelsFromLocalUseCase().onEach { newList ->
             if (newList.isNotEmpty()) {
@@ -134,7 +133,7 @@ class ChannelsViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    private fun fetchEpisodesDataFromCached() {
+    private fun getEpisodesDataFromCached() {
         _episodesLiveData.value = ResourceWrapper.Loading()
         getEpisodesFromLocalUseCase().onEach { newList ->
             if (newList.isNotEmpty()) {
@@ -162,9 +161,9 @@ class ChannelsViewModel @Inject constructor(
 
 
     /*
-    * download data from network
+    * download latest data from network
     */
-    private fun downloadAllChannelsDataFromCloud() {
+    private fun requestAllSectionsDataFromCloud() {
         /* request for episodes */
         _episodesJob?.cancel()//to prevent creating duplicate flow, fun is called multiple times
         _episodesJob = requestEpisodesFromNetworkUseCase().onEach {

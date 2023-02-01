@@ -11,7 +11,6 @@ import com.bimalghara.channelviewcleanarchitecturesolid.domain.use_case.RequestE
 import com.bimalghara.channelviewcleanarchitecturesolid.utils.NetworkConnectivitySource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -42,10 +41,10 @@ class SplashViewModel @Inject constructor(
     @Volatile private var _isEpisodesJobCompleted = false
 
     init {
-        observeNetworkStatus()
+        getNetworkStatus()
     }
 
-    private fun observeNetworkStatus() = viewModelScope.launch {
+    private fun getNetworkStatus() = viewModelScope.launch {
         val networkStatus = networkConnectivitySource.getStatus(ioDispatcher)
         Log.i(logTag, "network status: $networkStatus")
         if (networkStatus == NetworkConnectivitySource.Status.Available){
