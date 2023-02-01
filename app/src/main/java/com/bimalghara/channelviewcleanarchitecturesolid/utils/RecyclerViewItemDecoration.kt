@@ -7,6 +7,10 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
+/**
+ * Created by BimalGhara
+ */
+
 class RecyclerViewItemDecoration(
     context: Context,
     resId: Int

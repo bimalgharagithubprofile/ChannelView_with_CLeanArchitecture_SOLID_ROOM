@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 /**
  * Created by BimalGhara
  */
+
 //activity
 fun <T> AppCompatActivity.observe(liveData: LiveData<T>, action: (t: T) -> Unit) {
     liveData.observe(this) { it?.let { t -> action(t) } }
