@@ -21,7 +21,7 @@ import javax.inject.Singleton
 @Module
 class TestDataModuleDataSources {
 
-    @Provides
+    /*@Provides
     @Singleton
     fun provideDatabase(app: Application): AppDatabase {
         return Room.inMemoryDatabaseBuilder(
@@ -44,6 +44,6 @@ class TestDataModuleDataSources {
     @Singleton
     fun provideCategoriesLocalData(db: AppDatabase): CategoriesLocalDataSource {
         return AllChannelsLocalDataImpl(episodesDao = null, channelsDao = null, categoriesDao = db.categoriesDao)
-    }
+    }*/
 
 }

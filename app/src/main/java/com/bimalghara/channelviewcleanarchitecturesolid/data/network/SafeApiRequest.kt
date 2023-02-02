@@ -1,6 +1,5 @@
 package com.bimalghara.channelviewcleanarchitecturesolid.data.network
 
-import android.util.Log
 import com.bimalghara.channelviewcleanarchitecturesolid.data.error.CustomException
 import com.bimalghara.channelviewcleanarchitecturesolid.data.error.ERROR_NETWORK_ERROR
 import com.bimalghara.channelviewcleanarchitecturesolid.data.error.ERROR_SOCKET_TIMEOUT
