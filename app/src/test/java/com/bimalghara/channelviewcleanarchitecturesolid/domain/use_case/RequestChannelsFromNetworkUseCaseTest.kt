@@ -5,8 +5,7 @@ import com.bimalghara.channelviewcleanarchitecturesolid.FailureType
 import com.bimalghara.channelviewcleanarchitecturesolid.MainCoroutineRule
 import com.bimalghara.channelviewcleanarchitecturesolid.TestUtil.dataStatus
 import com.bimalghara.channelviewcleanarchitecturesolid.TestUtil.failureType
-import com.bimalghara.channelviewcleanarchitecturesolid.common.TestDispatcherProvider
-import com.bimalghara.channelviewcleanarchitecturesolid.data.error.CustomException
+import com.bimalghara.channelviewcleanarchitecturesolid.common.dispatcher.TestDispatcherProvider
 import com.bimalghara.channelviewcleanarchitecturesolid.data.error.ERROR_NETWORK_ERROR
 import com.bimalghara.channelviewcleanarchitecturesolid.data.error.ERROR_SOCKET_TIMEOUT
 import com.bimalghara.channelviewcleanarchitecturesolid.data.repository.FakeChannelsRepository
@@ -15,7 +14,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.test.runTest
 import com.google.common.truth.Truth.assertThat
-import org.junit.Assert.assertThrows
 
 import org.junit.Before
 import org.junit.Rule

@@ -17,7 +17,7 @@ android {
         versionName "1.0"
         multiDexEnabled true //[Multidex for room. below Android 5.0 need to add]
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.bimalghara.channelviewcleanarchitecturesolid.HiltTestRunner"
     }
     buildFeatures {
         viewBinding = true

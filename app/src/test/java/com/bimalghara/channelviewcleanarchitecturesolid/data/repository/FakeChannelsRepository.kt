@@ -14,6 +14,10 @@ import com.bimalghara.channelviewcleanarchitecturesolid.domain.repository.Channe
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
+/**
+ * Created by BimalGhara
+ */
+
 class FakeChannelsRepository : ChannelsRepositorySource {
     override suspend fun requestChannelsListFromNetwork(): Int {
         when (dataStatus) {

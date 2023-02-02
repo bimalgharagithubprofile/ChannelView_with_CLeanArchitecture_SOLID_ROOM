@@ -1,6 +1,5 @@
-package com.bimalghara.channelviewcleanarchitecturesolid.common
+package com.bimalghara.channelviewcleanarchitecturesolid.common.dispatcher
 
-import com.bimalghara.channelviewcleanarchitecturesolid.common.dispatcher.DispatcherProviderSource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
 
