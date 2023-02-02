@@ -1,4 +1,4 @@
-package com.bimalghara.channelviewcleanarchitecturesolid
+package com.bimalghara.channelviewcleanarchitecturesolid.utils
 
 /**
  * Created by BimalGhara

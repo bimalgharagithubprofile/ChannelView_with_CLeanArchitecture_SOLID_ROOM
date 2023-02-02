@@ -18,7 +18,6 @@ abstract class SafeApiRequest {
         return try{
             call.invoke()
         }catch (throwable: Throwable) {
-            Log.e("REST_API_Exc", "ERROR api invoke() => ${throwable.printStackTrace()}")
             when (throwable) {
                 is HttpException -> {
                     throw CustomException(cause = throwable.code().toString())

@@ -1,4 +1,4 @@
-package com.bimalghara.channelviewcleanarchitecturesolid
+package com.bimalghara.channelviewcleanarchitecturesolid.utils
 
 import android.app.Application
 import android.content.Context

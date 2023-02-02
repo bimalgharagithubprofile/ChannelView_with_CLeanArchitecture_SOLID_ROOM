@@ -1,9 +1,9 @@
 package com.bimalghara.channelviewcleanarchitecturesolid.data.repository
 
-import com.bimalghara.channelviewcleanarchitecturesolid.DataStatus
-import com.bimalghara.channelviewcleanarchitecturesolid.FailureType
-import com.bimalghara.channelviewcleanarchitecturesolid.TestUtil.dataStatus
-import com.bimalghara.channelviewcleanarchitecturesolid.TestUtil.failureType
+import com.bimalghara.channelviewcleanarchitecturesolid.utils.DataStatus
+import com.bimalghara.channelviewcleanarchitecturesolid.utils.FailureType
+import com.bimalghara.channelviewcleanarchitecturesolid.utils.TestUtil.dataStatus
+import com.bimalghara.channelviewcleanarchitecturesolid.utils.TestUtil.failureType
 import com.bimalghara.channelviewcleanarchitecturesolid.data.error.CustomException
 import com.bimalghara.channelviewcleanarchitecturesolid.data.error.ERROR_DEFAULT
 import com.bimalghara.channelviewcleanarchitecturesolid.data.error.ERROR_NETWORK_ERROR
