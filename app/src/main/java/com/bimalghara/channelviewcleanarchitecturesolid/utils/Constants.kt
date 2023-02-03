@@ -5,7 +5,7 @@ package com.bimalghara.channelviewcleanarchitecturesolid.utils
  */
 
 //timer
-const val SPLASH_DELAY = 3000
+const val SPLASH_DELAY = 2000
 
 
 //network

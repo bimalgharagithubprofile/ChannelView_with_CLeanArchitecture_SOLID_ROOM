@@ -18,6 +18,7 @@ import com.bimalghara.channelviewcleanarchitecturesolid.utils.ResourceWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -84,6 +85,7 @@ class HomeViewModel @Inject constructor(
     * load data from local database
     */
     private fun getCategoriesDataFromCached() = viewModelScope.launch(dispatcherProviderSource.io) {
+        delay(1000)//low priority
         _categoriesLiveData.postValue(ResourceWrapper.Loading())
         getCategoriesFromLocalUseCase().onEach { newList ->
             if (newList.isNotEmpty()) {

@@ -35,7 +35,6 @@ class SplashViewModel @Inject constructor(
     val isLoadingLiveData: LiveData<Boolean> get() = _isLoadingLiveData
 
     private var _categoriesJob: Job? = null
-    @Volatile private var _isCategoriesJobCompleted = false
     private var _channelsJob: Job? = null
     @Volatile private var _isChannelsJobCompleted = false
     private var _episodesJob: Job? = null
@@ -79,14 +78,15 @@ class SplashViewModel @Inject constructor(
         if(_categoriesJob == null) {//create job once
             viewModelScope.launch {
                 val result = requestCategoriesFromNetworkUseCase().last()
-                _isCategoriesJobCompleted = true
                 setIsLoading()
             }
         }
     }
 
     private fun setIsLoading() {
-        if(_isEpisodesJobCompleted && _isChannelsJobCompleted && _isCategoriesJobCompleted)
+        if(_isEpisodesJobCompleted && _isChannelsJobCompleted)
             _isLoadingLiveData.value = false
+
+        //here category is low priority as they appear last
     }
 }

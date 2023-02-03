@@ -6,11 +6,11 @@ import com.bimalghara.channelviewcleanarchitecturesolid.data.error.mapper.ErrorM
 import com.bimalghara.channelviewcleanarchitecturesolid.data.error.mapper.ErrorMapperSource
 import com.bimalghara.channelviewcleanarchitecturesolid.data.local.CategoriesLocalDataSource
 import com.bimalghara.channelviewcleanarchitecturesolid.data.local.ChannelsLocalDataSource
-import com.bimalghara.channelviewcleanarchitecturesolid.data.local.AllChannelsLocalDataImpl
+import com.bimalghara.channelviewcleanarchitecturesolid.data.local.AllSectionsLocalDataImpl
 import com.bimalghara.channelviewcleanarchitecturesolid.data.local.EpisodesLocalDataSource
 import com.bimalghara.channelviewcleanarchitecturesolid.data.local.database.AppDatabase
-import com.bimalghara.channelviewcleanarchitecturesolid.data.network.AllChannelsRemoteDataImpl
-import com.bimalghara.channelviewcleanarchitecturesolid.data.network.AllChannelsRemoteDataSource
+import com.bimalghara.channelviewcleanarchitecturesolid.data.network.AllSectionsRemoteDataImpl
+import com.bimalghara.channelviewcleanarchitecturesolid.data.network.AllSectionsRemoteDataSource
 import com.bimalghara.channelviewcleanarchitecturesolid.data.network.retrofit.ApiServiceGenerator
 import com.bimalghara.channelviewcleanarchitecturesolid.data.repository.CategoriesRepositoryImpl
 import com.bimalghara.channelviewcleanarchitecturesolid.data.repository.ChannelsRepositoryImpl
@@ -85,23 +85,23 @@ class DataModuleDataSources {
     @Provides
     @Singleton
     fun provideEpisodesLocalData(db: AppDatabase): EpisodesLocalDataSource {
-        return AllChannelsLocalDataImpl(episodesDao = db.episodesDao, channelsDao = null, categoriesDao = null)
+        return AllSectionsLocalDataImpl(episodesDao = db.episodesDao, channelsDao = null, categoriesDao = null)
     }
     @Provides
     @Singleton
     fun provideChannelsLocalData(db: AppDatabase): ChannelsLocalDataSource {
-        return AllChannelsLocalDataImpl(episodesDao = null, channelsDao = db.channelsDao, categoriesDao = null)
+        return AllSectionsLocalDataImpl(episodesDao = null, channelsDao = db.channelsDao, categoriesDao = null)
     }
     @Provides
     @Singleton
     fun provideCategoriesLocalData(db: AppDatabase): CategoriesLocalDataSource {
-        return AllChannelsLocalDataImpl(episodesDao = null, channelsDao = null, categoriesDao = db.categoriesDao)
+        return AllSectionsLocalDataImpl(episodesDao = null, channelsDao = null, categoriesDao = db.categoriesDao)
     }
 
     @Provides
     @Singleton
-    fun provideAllChannelsRemoteData(serviceGenerator: ApiServiceGenerator): AllChannelsRemoteDataSource {
-        return AllChannelsRemoteDataImpl(serviceGenerator)
+    fun provideAllChannelsRemoteData(serviceGenerator: ApiServiceGenerator): AllSectionsRemoteDataSource {
+        return AllSectionsRemoteDataImpl(serviceGenerator)
     }
 
 }

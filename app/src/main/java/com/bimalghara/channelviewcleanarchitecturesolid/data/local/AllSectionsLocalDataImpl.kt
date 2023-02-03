@@ -14,7 +14,7 @@ import javax.inject.Inject
  * Created by BimalGhara
  */
 
-class AllChannelsLocalDataImpl @Inject constructor(
+class AllSectionsLocalDataImpl @Inject constructor(
     private val episodesDao: EpisodesDao?,
     private val channelsDao: ChannelsDao?,
     private val categoriesDao: CategoriesDao?

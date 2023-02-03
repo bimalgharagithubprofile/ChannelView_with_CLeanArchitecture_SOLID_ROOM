@@ -5,7 +5,7 @@ import com.bimalghara.channelviewcleanarchitecturesolid.data.error.CustomExcepti
 import com.bimalghara.channelviewcleanarchitecturesolid.data.error.ERROR_DEFAULT
 import com.bimalghara.channelviewcleanarchitecturesolid.data.local.CategoriesLocalDataSource
 import com.bimalghara.channelviewcleanarchitecturesolid.data.mapper.toDomain
-import com.bimalghara.channelviewcleanarchitecturesolid.data.network.AllChannelsRemoteDataSource
+import com.bimalghara.channelviewcleanarchitecturesolid.data.network.AllSectionsRemoteDataSource
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.categories.CategoryEntity
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.repository.CategoriesRepositorySource
 import kotlinx.coroutines.flow.Flow
@@ -17,7 +17,7 @@ import javax.inject.Inject
  */
 
 class CategoriesRepositoryImpl @Inject constructor(
-    private val remoteDataSource: AllChannelsRemoteDataSource,
+    private val remoteDataSource: AllSectionsRemoteDataSource,
     private val localDataSource: CategoriesLocalDataSource
 ) :
     CategoriesRepositorySource {

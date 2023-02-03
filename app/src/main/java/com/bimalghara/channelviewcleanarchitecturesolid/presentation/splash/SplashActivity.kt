@@ -35,15 +35,18 @@ class SplashActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
 
         observe(splashViewModel.isLoadingLiveData) { isLoading ->
-            if(!isLoading)
-                navigateToMainScreen()
+            /*if(!isLoading)
+                navigateToMainScreen()*/
+
+            //no need to wait, as data loads cluster manner
+            navigateToMainScreen()
         }
     }
 
 
     private fun navigateToMainScreen() {
         CoroutineScope(Dispatchers.Main).launch {
-            delay(SPLASH_DELAY.toLong())
+            //delay(SPLASH_DELAY.toLong())//no need to wait, as data loads cluster manner
 
             val nextScreenIntent = Intent(this@SplashActivity, MainActivity::class.java)
             startActivity(nextScreenIntent)

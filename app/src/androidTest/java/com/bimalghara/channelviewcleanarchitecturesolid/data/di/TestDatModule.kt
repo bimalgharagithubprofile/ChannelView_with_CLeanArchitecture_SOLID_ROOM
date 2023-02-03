@@ -2,7 +2,7 @@ package com.bimalghara.channelviewcleanarchitecturesolid.data.di
 
 import android.app.Application
 import androidx.room.Room
-import com.bimalghara.channelviewcleanarchitecturesolid.data.local.AllChannelsLocalDataImpl
+import com.bimalghara.channelviewcleanarchitecturesolid.data.local.AllSectionsLocalDataImpl
 import com.bimalghara.channelviewcleanarchitecturesolid.data.local.CategoriesLocalDataSource
 import com.bimalghara.channelviewcleanarchitecturesolid.data.local.ChannelsLocalDataSource
 import com.bimalghara.channelviewcleanarchitecturesolid.data.local.EpisodesLocalDataSource
@@ -33,17 +33,17 @@ class TestDataModuleDataSources {
     @Provides
     @Singleton
     fun provideEpisodesLocalData(db: AppDatabase): EpisodesLocalDataSource {
-        return AllChannelsLocalDataImpl(episodesDao = db.episodesDao, channelsDao = null, categoriesDao = null)
+        return AllSectionsLocalDataImpl(episodesDao = db.episodesDao, channelsDao = null, categoriesDao = null)
     }
     @Provides
     @Singleton
     fun provideChannelsLocalData(db: AppDatabase): ChannelsLocalDataSource {
-        return AllChannelsLocalDataImpl(episodesDao = null, channelsDao = db.channelsDao, categoriesDao = null)
+        return AllSectionsLocalDataImpl(episodesDao = null, channelsDao = db.channelsDao, categoriesDao = null)
     }
     @Provides
     @Singleton
     fun provideCategoriesLocalData(db: AppDatabase): CategoriesLocalDataSource {
-        return AllChannelsLocalDataImpl(episodesDao = null, channelsDao = null, categoriesDao = db.categoriesDao)
+        return AllSectionsLocalDataImpl(episodesDao = null, channelsDao = null, categoriesDao = db.categoriesDao)
     }
 
 }

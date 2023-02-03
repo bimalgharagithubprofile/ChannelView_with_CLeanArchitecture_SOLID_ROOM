@@ -9,7 +9,7 @@ import com.bimalghara.channelviewcleanarchitecturesolid.data.model.eposodes.Epis
  * Created by BimalGhara
  */
 
-interface AllChannelsRemoteDataSource {
+interface AllSectionsRemoteDataSource {
 
     suspend fun requestCategories(): CategoriesDTO
 

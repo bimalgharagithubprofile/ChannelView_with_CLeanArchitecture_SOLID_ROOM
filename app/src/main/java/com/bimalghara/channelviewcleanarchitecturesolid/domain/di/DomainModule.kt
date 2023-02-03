@@ -29,8 +29,8 @@ class DomainModule {
         return RequestCategoriesFromNetworkUseCase(dispatcherProviderSource = dispatcherProviderSource, categoriesRepositorySource = categoriesRepositorySource)
     }
     @Provides
-    fun provideGetCategoriesFromLocalUseCase(dispatcherProviderSource: DispatcherProviderSource, categoriesRepositorySource: CategoriesRepositorySource): GetCategoriesFromLocalUseCase {
-        return GetCategoriesFromLocalUseCase(dispatcherProviderSource = dispatcherProviderSource, categoriesRepositorySource = categoriesRepositorySource)
+    fun provideGetCategoriesFromLocalUseCase(categoriesRepositorySource: CategoriesRepositorySource): GetCategoriesFromLocalUseCase {
+        return GetCategoriesFromLocalUseCase(categoriesRepositorySource = categoriesRepositorySource)
     }
 
     @Provides
@@ -38,8 +38,8 @@ class DomainModule {
         return RequestChannelsFromNetworkUseCase(dispatcherProviderSource = dispatcherProviderSource, channelsRepositorySource = channelsRepositorySource)
     }
     @Provides
-    fun provideGetChannelsFromLocalUseCase(dispatcherProviderSource: DispatcherProviderSource, channelsRepositorySource: ChannelsRepositorySource): GetChannelsFromLocalUseCase {
-        return GetChannelsFromLocalUseCase(dispatcherProviderSource = dispatcherProviderSource, channelsRepositorySource = channelsRepositorySource)
+    fun provideGetChannelsFromLocalUseCase(channelsRepositorySource: ChannelsRepositorySource): GetChannelsFromLocalUseCase {
+        return GetChannelsFromLocalUseCase(channelsRepositorySource = channelsRepositorySource)
     }
 
     @Provides
@@ -47,8 +47,8 @@ class DomainModule {
         return RequestEpisodesFromNetworkUseCase(dispatcherProviderSource = dispatcherProviderSource, episodesRepositorySource = episodesRepositorySource)
     }
     @Provides
-    fun provideGetEpisodesFromLocalUseCase(dispatcherProviderSource: DispatcherProviderSource, episodesRepositorySource: EpisodesRepositorySource): GetEpisodesFromLocalUseCase {
-        return GetEpisodesFromLocalUseCase(dispatcherProviderSource = dispatcherProviderSource, episodesRepositorySource = episodesRepositorySource)
+    fun provideGetEpisodesFromLocalUseCase(episodesRepositorySource: EpisodesRepositorySource): GetEpisodesFromLocalUseCase {
+        return GetEpisodesFromLocalUseCase(episodesRepositorySource = episodesRepositorySource)
     }
 
 }

@@ -14,9 +14,9 @@ import javax.inject.Inject
  * Created by BimalGhara
  */
 
-class AllChannelsRemoteDataImpl @Inject constructor(
+class AllSectionsRemoteDataImpl @Inject constructor(
     private val serviceGenerator: ApiServiceGenerator
-) : SafeApiRequest(), AllChannelsRemoteDataSource {
+) : SafeApiRequest(), AllSectionsRemoteDataSource {
 
     override suspend fun requestCategories(): CategoriesDTO {
         val categoriesService = serviceGenerator.createApiService(ApiServiceCategories::class.java)
