@@ -82,6 +82,8 @@ dependencies {
     //SDP Library - for Responsive size
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
 
+    implementation 'androidx.test.espresso:espresso-idling-resource:3.5.1'//block ui
+
     // testing JVM
     testImplementation 'junit:junit:4.13.2'//Junit-4 testing framework
     testImplementation 'androidx.arch.core:core-testing:2.1.0'//android architecture component
@@ -94,6 +96,8 @@ dependencies {
     androidTestImplementation 'junit:junit:4.13.2'//Junit-4 testing framework
     androidTestImplementation 'androidx.test.ext:junit-ktx:1.1.5'//Junit testing ext
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'//ui interaction
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.5.1'//ui interaction
+    androidTestImplementation "androidx.test.espresso:espresso-intents:3.5.1"//ui interaction
     debugImplementation 'androidx.fragment:fragment-testing:1.5.5'//ui fragment
     androidTestImplementation 'com.google.dagger:hilt-android-testing:2.37'//hilt test environment
     kaptAndroidTest 'com.google.dagger:hilt-android-compiler:2.37'//hilt test environment

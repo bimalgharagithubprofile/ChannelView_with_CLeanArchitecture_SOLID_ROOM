@@ -15,6 +15,7 @@ import com.bimalghara.channelviewcleanarchitecturesolid.domain.use_case.*
 import com.bimalghara.channelviewcleanarchitecturesolid.presentation.base.BaseViewModel
 import com.bimalghara.channelviewcleanarchitecturesolid.utils.NetworkConnectivitySource
 import com.bimalghara.channelviewcleanarchitecturesolid.utils.ResourceWrapper
+import com.bimalghara.channelviewcleanarchitecturesolid.utils.wrapEspressoIdlingResource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
@@ -84,79 +85,85 @@ class HomeViewModel @Inject constructor(
     /*
     * load data from local database
     */
-    private fun getCategoriesDataFromCached() = viewModelScope.launch(dispatcherProviderSource.io) {
+    private fun getCategoriesDataFromCached() = viewModelScope.launch {
         delay(1000)//low priority
-        _categoriesLiveData.postValue(ResourceWrapper.Loading())
-        getCategoriesFromLocalUseCase().onEach { newList ->
-            if (newList.isNotEmpty()) {
-                val completeList: MutableList<CategoryEntity> = arrayListOf()
-                if (_categoriesLiveData.value?.data != null) {
-                    val existingList = _categoriesLiveData.value!!.data!!.toMutableList()
-                    existingList.removeAll(newList)
-                    completeList.addAll(existingList.plus(newList).toSet().toList())
-                } else {
-                    completeList.addAll(newList.toSet().toList())
-                }
+        _categoriesLiveData.value = ResourceWrapper.Loading()
+        wrapEspressoIdlingResource {
+            getCategoriesFromLocalUseCase().onEach { newList ->
+                if (newList.isNotEmpty()) {
+                    val completeList: MutableList<CategoryEntity> = arrayListOf()
+                    if (_categoriesLiveData.value?.data != null) {
+                        val existingList = _categoriesLiveData.value!!.data!!.toMutableList()
+                        existingList.removeAll(newList)
+                        completeList.addAll(existingList.plus(newList).toSet().toList())
+                    } else {
+                        completeList.addAll(newList.toSet().toList())
+                    }
 
-                if (completeList.isEmpty()) {
-                    val ex = CustomException(cause = ERROR_NO_RECORDS)
-                    showError(ex)
-                    _categoriesLiveData.postValue(ResourceWrapper.Error(ex))
-                } else {
-                    _categoriesLiveData.postValue(ResourceWrapper.Success(data = completeList))
+                    if (completeList.isEmpty()) {
+                        val ex = CustomException(cause = ERROR_NO_RECORDS)
+                        showError(ex)
+                        _categoriesLiveData.value = ResourceWrapper.Error(ex)
+                    } else {
+                        _categoriesLiveData.value = ResourceWrapper.Success(data = completeList)
+                    }
                 }
-            }
-        }.launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
+        }
     }
 
-    private fun getChannelsDataFromCached() = viewModelScope.launch(dispatcherProviderSource.io) {
-        _channelsLiveData.postValue(ResourceWrapper.Loading())
-        getChannelsFromLocalUseCase().onEach { newList ->
-            if (newList.isNotEmpty()) {
+    private fun getChannelsDataFromCached() = viewModelScope.launch {
+        _channelsLiveData.value = ResourceWrapper.Loading()
+        wrapEspressoIdlingResource {
+            getChannelsFromLocalUseCase().onEach { newList ->
+                if (newList.isNotEmpty()) {
 
-                val completeList: MutableList<ChannelEntity> = arrayListOf()
-                if (_channelsLiveData.value?.data != null) {
-                    val existingList = _channelsLiveData.value!!.data!!.toMutableList()
-                    existingList.removeAll(newList)
-                    completeList.addAll(existingList.plus(newList).toSet().toList())
-                } else {
-                    completeList.addAll(newList.toSet().toList())
-                }
+                    val completeList: MutableList<ChannelEntity> = arrayListOf()
+                    if (_channelsLiveData.value?.data != null) {
+                        val existingList = _channelsLiveData.value!!.data!!.toMutableList()
+                        existingList.removeAll(newList)
+                        completeList.addAll(existingList.plus(newList).toSet().toList())
+                    } else {
+                        completeList.addAll(newList.toSet().toList())
+                    }
 
-                if (completeList.isEmpty()) {
-                    val ex = CustomException(cause = ERROR_NO_RECORDS)
-                    showError(ex)
-                    _channelsLiveData.postValue(ResourceWrapper.Error(ex))
-                } else {
-                    _channelsLiveData.postValue(ResourceWrapper.Success(data = completeList))
+                    if (completeList.isEmpty()) {
+                        val ex = CustomException(cause = ERROR_NO_RECORDS)
+                        showError(ex)
+                        _channelsLiveData.value = ResourceWrapper.Error(ex)
+                    } else {
+                        _channelsLiveData.value = ResourceWrapper.Success(data = completeList)
+                    }
                 }
-            }
-        }.launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
+        }
     }
 
-    private fun getEpisodesDataFromCached() = viewModelScope.launch(dispatcherProviderSource.io) {
-        _episodesLiveData.postValue(ResourceWrapper.Loading())
-        getEpisodesFromLocalUseCase().onEach { newList ->
-            if (newList.isNotEmpty()) {
+    private fun getEpisodesDataFromCached() = viewModelScope.launch {
+        _episodesLiveData.value = ResourceWrapper.Loading()
+        wrapEspressoIdlingResource {
+            getEpisodesFromLocalUseCase().onEach { newList ->
+                if (newList.isNotEmpty()) {
 
-                val completeList: MutableList<EpisodeEntity> = arrayListOf()
-                if (_episodesLiveData.value?.data != null) {
-                    val existingList = _episodesLiveData.value!!.data!!.toMutableList()
-                    existingList.removeAll(newList)
-                    completeList.addAll(existingList.plus(newList).toSet().toList())
-                } else {
-                    completeList.addAll(newList.toSet().toList())
-                }
+                    val completeList: MutableList<EpisodeEntity> = arrayListOf()
+                    if (_episodesLiveData.value?.data != null) {
+                        val existingList = _episodesLiveData.value!!.data!!.toMutableList()
+                        existingList.removeAll(newList)
+                        completeList.addAll(existingList.plus(newList).toSet().toList())
+                    } else {
+                        completeList.addAll(newList.toSet().toList())
+                    }
 
-                if (completeList.isEmpty()) {
-                    val ex = CustomException(cause = ERROR_NO_RECORDS)
-                    showError(ex)
-                    _episodesLiveData.postValue(ResourceWrapper.Error(ex))
-                } else {
-                    _episodesLiveData.postValue(ResourceWrapper.Success(data = completeList))
+                    if (completeList.isEmpty()) {
+                        val ex = CustomException(cause = ERROR_NO_RECORDS)
+                        showError(ex)
+                        _episodesLiveData.value = ResourceWrapper.Error(ex)
+                    } else {
+                        _episodesLiveData.value = ResourceWrapper.Success(data = completeList)
+                    }
                 }
-            }
-        }.launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
+        }
     }
 
 
