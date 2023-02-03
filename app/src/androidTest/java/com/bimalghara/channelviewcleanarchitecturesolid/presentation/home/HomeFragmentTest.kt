@@ -1,23 +1,27 @@
 package com.bimalghara.channelviewcleanarchitecturesolid.presentation.home
 
+import android.os.Bundle
 import androidx.fragment.app.testing.FragmentScenario
-import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.Lifecycle
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.filters.MediumTest
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Before
 import org.junit.Rule
 import com.bimalghara.channelviewcleanarchitecturesolid.R
+import com.bimalghara.channelviewcleanarchitecturesolid.utils.launchFragmentInHiltContainer
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Test
 
 /**
  * Created by BimalGhara
  */
-
+@MediumTest
+@ExperimentalCoroutinesApi
 @HiltAndroidTest
 class HomeFragmentTest {
 
@@ -33,8 +37,9 @@ class HomeFragmentTest {
     fun setUp(){
         hiltRule.inject()
 
-        scenario = launchFragmentInContainer(themeResId = R.style.Theme_ChannelViewCleanArchitectureSolid, initialState = Lifecycle.State.INITIALIZED)
-        scenario.moveToState(Lifecycle.State.RESUMED)
+        launchFragmentInHiltContainer<HomeFragment>(Bundle(), R.style.Theme_ChannelViewCleanArchitectureSolid)
+
+        //scenario.moveToState(Lifecycle.State.RESUMED)
     }
 
     @Test
