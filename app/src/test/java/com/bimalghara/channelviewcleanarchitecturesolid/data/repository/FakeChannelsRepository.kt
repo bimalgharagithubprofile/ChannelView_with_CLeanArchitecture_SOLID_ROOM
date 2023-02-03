@@ -1,9 +1,5 @@
 package com.bimalghara.channelviewcleanarchitecturesolid.data.repository
 
-import com.bimalghara.channelviewcleanarchitecturesolid.utils.DataStatus
-import com.bimalghara.channelviewcleanarchitecturesolid.utils.FailureType
-import com.bimalghara.channelviewcleanarchitecturesolid.utils.TestUtil.dataStatus
-import com.bimalghara.channelviewcleanarchitecturesolid.utils.TestUtil.failureType
 import com.bimalghara.channelviewcleanarchitecturesolid.data.error.CustomException
 import com.bimalghara.channelviewcleanarchitecturesolid.data.error.ERROR_DEFAULT
 import com.bimalghara.channelviewcleanarchitecturesolid.data.error.ERROR_NETWORK_ERROR
@@ -11,6 +7,10 @@ import com.bimalghara.channelviewcleanarchitecturesolid.data.error.ERROR_SOCKET_
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.channels.ChannelEntity
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.channels.ChannelMedia
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.repository.ChannelsRepositorySource
+import com.bimalghara.sharedtest.sharedUtils.DataStatus
+import com.bimalghara.sharedtest.sharedUtils.FailureType
+import com.bimalghara.sharedtest.sharedUtils.TestUtil.dataStatus
+import com.bimalghara.sharedtest.sharedUtils.TestUtil.failureType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

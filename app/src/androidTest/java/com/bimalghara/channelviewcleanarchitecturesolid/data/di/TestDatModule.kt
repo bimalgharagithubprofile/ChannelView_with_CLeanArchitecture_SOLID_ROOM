@@ -2,11 +2,11 @@ package com.bimalghara.channelviewcleanarchitecturesolid.data.di
 
 import android.app.Application
 import androidx.room.Room
-import com.bimalghara.channelviewcleanarchitecturesolid.data.local.AllSectionsLocalDataImpl
-import com.bimalghara.channelviewcleanarchitecturesolid.data.local.CategoriesLocalDataSource
-import com.bimalghara.channelviewcleanarchitecturesolid.data.local.ChannelsLocalDataSource
-import com.bimalghara.channelviewcleanarchitecturesolid.data.local.EpisodesLocalDataSource
+import com.bimalghara.channelviewcleanarchitecturesolid.data.local.*
 import com.bimalghara.channelviewcleanarchitecturesolid.data.local.database.AppDatabase
+import com.bimalghara.channelviewcleanarchitecturesolid.data.network.AllSectionsRemoteDataSource
+import com.bimalghara.channelviewcleanarchitecturesolid.data.network.FakeAllSectionsRemoteDataImpl
+import com.bimalghara.channelviewcleanarchitecturesolid.data.network.retrofit.ApiServiceGenerator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,7 +17,6 @@ import javax.inject.Singleton
  * Created by BimalGhara
  */
 
-/*
 @InstallIn(SingletonComponent::class)
 @Module
 class TestDataModuleDataSources {
@@ -47,4 +46,10 @@ class TestDataModuleDataSources {
         return AllSectionsLocalDataImpl(episodesDao = null, channelsDao = null, categoriesDao = db.categoriesDao)
     }
 
-}*/
+    @Provides
+    @Singleton
+    fun provideAllChannelsRemoteData(serviceGenerator: ApiServiceGenerator): AllSectionsRemoteDataSource {
+        return FakeAllSectionsRemoteDataImpl(serviceGenerator)
+    }
+
+}

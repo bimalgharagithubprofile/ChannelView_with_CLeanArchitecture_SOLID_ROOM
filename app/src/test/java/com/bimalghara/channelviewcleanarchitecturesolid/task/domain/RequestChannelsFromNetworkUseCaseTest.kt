@@ -1,10 +1,10 @@
 package com.bimalghara.channelviewcleanarchitecturesolid.task.domain
 
-import com.bimalghara.channelviewcleanarchitecturesolid.utils.DataStatus
-import com.bimalghara.channelviewcleanarchitecturesolid.utils.FailureType
+import com.bimalghara.sharedtest.sharedUtils.DataStatus
+import com.bimalghara.sharedtest.sharedUtils.FailureType
 import com.bimalghara.channelviewcleanarchitecturesolid.utils.MainCoroutineRule
-import com.bimalghara.channelviewcleanarchitecturesolid.utils.TestUtil.dataStatus
-import com.bimalghara.channelviewcleanarchitecturesolid.utils.TestUtil.failureType
+import com.bimalghara.sharedtest.sharedUtils.TestUtil.dataStatus
+import com.bimalghara.sharedtest.sharedUtils.TestUtil.failureType
 import com.bimalghara.channelviewcleanarchitecturesolid.common.dispatcher.TestDispatcherProvider
 import com.bimalghara.channelviewcleanarchitecturesolid.data.error.ERROR_NETWORK_ERROR
 import com.bimalghara.channelviewcleanarchitecturesolid.data.error.ERROR_SOCKET_TIMEOUT

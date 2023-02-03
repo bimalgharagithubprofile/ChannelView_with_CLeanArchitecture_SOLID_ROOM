@@ -1,6 +1,6 @@
 package com.bimalghara.channelviewcleanarchitecturesolid.task.network
 
-import com.bimalghara.channelviewcleanarchitecturesolid.utils.Helper
+import com.bimalghara.sharedtest.sharedUtils.TestHelper
 import com.bimalghara.channelviewcleanarchitecturesolid.data.error.CustomException
 import com.bimalghara.channelviewcleanarchitecturesolid.data.error.ERROR_NETWORK_ERROR
 import com.bimalghara.channelviewcleanarchitecturesolid.data.error.ERROR_SOCKET_TIMEOUT
@@ -48,7 +48,7 @@ class ApiServiceCategoriesTest : SafeApiRequest() {
     fun `test Categories api expected Success with three records`() = runTest {
         //Arrange
         val mockerResponse = MockResponse()
-        val content = Helper.readFileFromResource("/categories.json")
+        val content = TestHelper.readFileFromResource("/categories.json")
         mockerResponse.setResponseCode(200)
         mockerResponse.setBody(content)
         mockWebServer.enqueue(mockerResponse)

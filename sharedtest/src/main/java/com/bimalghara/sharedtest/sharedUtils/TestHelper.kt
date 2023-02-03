@@ -1,4 +1,4 @@
-package com.bimalghara.channelviewcleanarchitecturesolid.utils
+package com.bimalghara.sharedtest.sharedUtils
 
 import java.io.InputStreamReader
 
@@ -7,10 +7,10 @@ import java.io.InputStreamReader
  */
 
 
-object Helper {
+object TestHelper {
 
     fun readFileFromResource(fileName: String): String {
-        val inputStream = Helper::class.java.getResourceAsStream(fileName)
+        val inputStream = TestHelper::class.java.getResourceAsStream(fileName)
         val stringBuilder = StringBuilder()
         val reader = InputStreamReader(inputStream, "UTF-8")
         reader.readLines().forEach {

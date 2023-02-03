@@ -1,4 +1,4 @@
-package com.bimalghara.channelviewcleanarchitecturesolid.utils
+package com.bimalghara.sharedtest.sharedUtils
 
 /**
  * Created by BimalGhara
