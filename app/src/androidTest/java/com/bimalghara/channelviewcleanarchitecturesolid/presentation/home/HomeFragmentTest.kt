@@ -1,8 +1,6 @@
 package com.bimalghara.channelviewcleanarchitecturesolid.presentation.home
 
 import android.os.Bundle
-import androidx.fragment.app.testing.FragmentScenario
-import androidx.lifecycle.Lifecycle
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -30,16 +28,12 @@ class HomeFragmentTest {
     @get:Rule(order = 0)
     val hiltRule = HiltAndroidRule(this)
 
-    private lateinit var scenario: FragmentScenario<HomeFragment>
-
 
     @Before
     fun setUp(){
         hiltRule.inject()
 
         launchFragmentInHiltContainer<HomeFragment>(Bundle(), R.style.Theme_ChannelViewCleanArchitectureSolid)
-
-        //scenario.moveToState(Lifecycle.State.RESUMED)
     }
 
     @Test
