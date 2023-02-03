@@ -3,8 +3,8 @@ package com.bimalghara.channelviewcleanarchitecturesolid.presentation.home
 import android.os.Bundle
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.filters.LargeTest
 import androidx.test.filters.MediumTest
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -18,7 +18,7 @@ import org.junit.Test
 /**
  * Created by BimalGhara
  */
-@MediumTest
+@LargeTest
 @ExperimentalCoroutinesApi
 @HiltAndroidTest
 class HomeFragmentTest {
@@ -37,8 +37,13 @@ class HomeFragmentTest {
     }
 
     @Test
+    fun displayShimmerLoadingAnimation() {
+        onView(withId(R.id.shimmer)).check(matches(isDisplayed()))
+    }
+
+    @Test
     fun displayEpisodesList() {
-        onView(withId(R.id.tvScreenTittle)).check(matches(withText("Channels")))
+        onView(withText(R.string.new_episodes)).check(matches(isDisplayed()))
     }
 
 }
