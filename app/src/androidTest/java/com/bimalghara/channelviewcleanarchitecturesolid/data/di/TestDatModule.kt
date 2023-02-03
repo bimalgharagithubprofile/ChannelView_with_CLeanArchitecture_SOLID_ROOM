@@ -17,6 +17,7 @@ import javax.inject.Singleton
  * Created by BimalGhara
  */
 
+/*
 @InstallIn(SingletonComponent::class)
 @Module
 class TestDataModuleDataSources {
@@ -46,4 +47,4 @@ class TestDataModuleDataSources {
         return AllSectionsLocalDataImpl(episodesDao = null, channelsDao = null, categoriesDao = db.categoriesDao)
     }
 
-}
+}*/
