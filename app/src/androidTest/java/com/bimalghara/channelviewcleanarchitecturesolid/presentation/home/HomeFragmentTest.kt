@@ -6,10 +6,13 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import com.bimalghara.channelviewcleanarchitecturesolid.R
+import com.bimalghara.channelviewcleanarchitecturesolid.data.di.DataModuleDataSources
 import com.bimalghara.channelviewcleanarchitecturesolid.utils.launchFragmentInHiltContainer
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.hamcrest.core.IsNot.not
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -20,6 +23,7 @@ import org.junit.Test
 @LargeTest
 @ExperimentalCoroutinesApi
 @HiltAndroidTest
+@UninstallModules(DataModuleDataSources::class)
 class HomeFragmentTest {
 
     //Rule to inject all the dependency as @HiltAndroidTest is not enough for test env
@@ -42,6 +46,8 @@ class HomeFragmentTest {
 
     @Test
     fun displayEpisodesList() {
+        onView(withId(R.id.shimmer)).check(matches(isDisplayed()))
+        onView(withId(R.id.shimmer)).check(matches(not(isDisplayed())))
         onView(withText(R.string.new_episodes)).check(matches(isDisplayed()))
     }
 
