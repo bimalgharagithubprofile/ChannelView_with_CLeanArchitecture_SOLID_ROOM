@@ -1,4 +1,4 @@
-package com.bimalghara.channelviewcleanarchitecturesolid.presentation.home
+package com.bimalghara.channelviewcleanarchitecturesolid.task.presentation.home
 
 import android.os.Bundle
 import androidx.test.espresso.Espresso.onView
@@ -14,6 +14,7 @@ import com.bimalghara.channelviewcleanarchitecturesolid.R
 import com.bimalghara.channelviewcleanarchitecturesolid.data.di.DataModuleDataSources
 import com.bimalghara.channelviewcleanarchitecturesolid.data.local.database.AppDatabase
 import com.bimalghara.channelviewcleanarchitecturesolid.domain.model.entity.episodes.EpisodeEntity
+import com.bimalghara.channelviewcleanarchitecturesolid.presentation.home.HomeFragment
 import com.bimalghara.channelviewcleanarchitecturesolid.utils.BaseRobot
 import com.bimalghara.channelviewcleanarchitecturesolid.utils.EspressoIdlingResource
 import com.bimalghara.channelviewcleanarchitecturesolid.utils.launchFragmentInHiltContainer
@@ -32,6 +33,7 @@ import javax.inject.Inject
 /**
  * Created by BimalGhara
  */
+
 @LargeTest
 @ExperimentalCoroutinesApi
 @HiltAndroidTest
