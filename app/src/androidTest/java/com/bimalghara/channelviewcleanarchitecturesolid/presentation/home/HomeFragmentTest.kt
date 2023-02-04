@@ -78,7 +78,6 @@ class HomeFragmentTest {
             db.episodesDao.addEpisodes(
                 listOf(
                     EpisodeEntity(title = "Dummy Title 1", channel = "Awesome One", coverAsset = "https://assets.mindvalley.com/api/v1/assets/5bdbdd0e-3bd3-432b-b8cb-3d3556c58c94.jpg?transform=w_1080"),
-                    EpisodeEntity(title = "Dummy Title 2", channel = "Awesome Two", coverAsset = "https://assets.mindvalley.com/api/v1/assets/273a5e20-8088-4e94-8f34-6b0241e93962.jpg?transform=w_1080")
                 )
             )
         }
