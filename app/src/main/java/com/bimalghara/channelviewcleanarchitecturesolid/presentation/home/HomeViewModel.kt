@@ -72,12 +72,14 @@ class HomeViewModel @Inject constructor(
     }
 
     fun refreshContent() = viewModelScope.launch {
-        val networkStatus = async { getNetworkStatus() }.await()
+        wrapEspressoIdlingResource {
+            val networkStatus = async { getNetworkStatus() }.await()
 
-        if (networkStatus != NetworkConnectivitySource.Status.Available) {
-            showError(CustomException(cause = ERROR_NO_INTERNET_CONNECTION))//just to notify user about no-internet
-        } else {
-            requestAllSectionsDataFromCloud()
+            if (networkStatus != NetworkConnectivitySource.Status.Available) {
+                showError(CustomException(cause = ERROR_NO_INTERNET_CONNECTION))//just to notify user about no-internet
+            } else {
+                requestAllSectionsDataFromCloud()
+            }
         }
     }
 

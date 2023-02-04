@@ -20,16 +20,6 @@
         "channel": {
           "title": "Little Humans"
         }
-      },
-      {
-        "type": "course",
-        "title": "Recorded Live Calls: Intellectual Life",
-        "coverAsset": {
-          "url": "https://assets.mindvalley.com/api/v1/assets/273a5e20-8088-4e94-8f34-6b0241e93962.jpg?transform=w_1080"
-        },
-        "channel": {
-          "title": "Lifebook Membership"
-        }
       }
     ]
   }
