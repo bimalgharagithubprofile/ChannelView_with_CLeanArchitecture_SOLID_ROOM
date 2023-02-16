@@ -35,11 +35,8 @@ class SplashActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
 
         observe(splashViewModel.isLoadingLiveData) { isLoading ->
-            /*if(!isLoading)
-                navigateToMainScreen()*/
-
-            //no need to wait, as data loads cluster manner
-            navigateToMainScreen()
+            if(!isLoading)
+                navigateToMainScreen()
         }
     }
 
